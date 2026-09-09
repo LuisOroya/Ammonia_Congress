@@ -1,0 +1,6 @@
+# Conservative upward-rounded reference design derived from the current Stage-1 optimum.
+# PV/wind: rounded upward to 0.01 MW. H2 storage: rounded upward to 10 kg.
+data;
+param P_PV_MAX  := 78.68;
+param P_WD_MAX  := 407.52;
+param H2_ST_MAX := 48180;

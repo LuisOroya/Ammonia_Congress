@@ -1,0 +1,196 @@
+# ============================================================
+# main_flex_smoke.run
+# Exact SB-PWL paired flexibility pilot.
+# START_STEP = 168 h
+# March only smoke test
+# ============================================================
+reset;
+model p2a_paired_flex_exact_sbpwl.mod;
+data flex_common.dat;
+data flex_profiles_2025.dat;
+data flex_baselines_2025.dat;
+
+option solver gurobi;
+option presolve_eps 1e-10;
+option gurobi_options 'mipgap=0.00001 mipfocus=2 presolve=2 threads=16 numericfocus=3';
+
+param START_STEP integer > 0 := 168;
+param RUN_SECONDARY binary := 0;
+
+# Primary metric outputs.
+printf "scenario,case,duration,start,direction,envelope,deltaP_MW,baseline_window_avg_MW,activated_window_avg_MW,grid_import_MWh,grid_export_MWh,res_used_MWh,h2_min_kg,h2_max_kg,monthly_margin_MWh,weekly_min_margin_MWh,hourly_min_margin_MW\n"
+  > "paired_flexibility_results.csv";
+
+printf "scenario,case,duration,direction,n_samples,mean_phys_MW,mean_rm_MW,retained_sum_ratio,phys_avail_ge1_frac,rm_avail_ge1_frac,min_phys_MW,max_phys_MW,min_rm_MW,max_rm_MW,rm_gt_phys_count\n"
+  > "paired_retention_summary.csv";
+
+# Ensure only the flexibility objective is active initially.
+drop SecondaryOperatingCost;
+restore FlexibilityAmplitude;
+
+for {s in SCENS: s = 3} {
+  let SCEN_ACTIVE := s;
+
+  for {c in CASES} {
+    let BASE_CASE := c;
+
+    for {d in DURS, tau in T:
+          tau <= NPER[s]
+          and tau+d-1 <= NPER[s]
+          and ((tau-1) mod START_STEP) = 0} {
+
+      let TESTED[s,c,d,tau] := 1;
+      let TAU_ACTIVE := tau;
+      let {t in T} ACTIVE[t] :=
+          if t >= tau and t <= tau+d-1 then 1 else 0;
+
+      # ------------------------------------------------------
+      # Two directions: 1=INC, 2=DEC
+      # ------------------------------------------------------
+      for {q in 1..2} {
+        if q = 1 then { let FLEX_INC := 1; let FLEX_DEC := 0; }
+        if q = 2 then { let FLEX_INC := 0; let FLEX_DEC := 1; }
+
+        # ----------------------------------------------------
+        # Two envelopes: 0=PHYS (matching removed), 1=RM
+        # ----------------------------------------------------
+        for {e in 0..1} {
+          if e = 0 then {
+            let MATCH_MONTHLY := 0;
+            let MATCH_WEEKLY  := 0;
+            let MATCH_HOURLY  := 0;
+          }
+          if e = 1 then {
+            let MATCH_MONTHLY := if c = 1 then 1 else 0;
+            let MATCH_WEEKLY  := if c = 2 then 1 else 0;
+            let MATCH_HOURLY  := if c = 3 then 1 else 0;
+          }
+
+          let LOCK_DELTA := 0;
+          let DELTA_TARGET := 0;
+          drop SecondaryOperatingCost;
+          restore FlexibilityAmplitude;
+
+          solve;
+          if solve_result != "solved" then {
+            printf "FAILED: s=%d c=%d d=%d tau=%d q=%d e=%d result=%s\n",
+              s,c,d,tau,q,e,solve_result;
+            exit;
+          }
+
+          let DELTA_TARGET := DeltaP;
+          if DELTA_TARGET < FLEX_ZERO_TOL then let DELTA_TARGET := 0;
+
+          if q = 1 and e = 0 then let F_PHYS_INC[s,c,d,tau] := DELTA_TARGET;
+          if q = 1 and e = 1 then let F_RM_INC[s,c,d,tau]   := DELTA_TARGET;
+          if q = 2 and e = 0 then let F_PHYS_DEC[s,c,d,tau] := DELTA_TARGET;
+          if q = 2 and e = 1 then let F_RM_DEC[s,c,d,tau]   := DELTA_TARGET;
+
+          # Optional Stage-B tie-breaker. Not needed for the retained-flexibility
+          # metric, so disabled in pilot files to halve computational burden.
+          if RUN_SECONDARY = 1 then {
+            let LOCK_DELTA := 1;
+            drop FlexibilityAmplitude;
+            restore SecondaryOperatingCost;
+            solve;
+            if solve_result != "solved" then {
+              printf "SECONDARY FAILED: s=%d c=%d d=%d tau=%d q=%d e=%d result=%s\n",
+                s,c,d,tau,q,e,solve_result;
+              exit;
+            }
+          }
+
+          printf "%d,%d,%d,%d,%s,%s,%.8f,%.8f,%.8f,%.8f,%.8f,%.8f,%.8f,%.8f,%.8f,%.8f,%.8f\n",
+            s,c,d,tau,
+            if q=1 then "INC" else "DEC",
+            if e=0 then "PHYS" else "RM",
+            DELTA_TARGET,
+            (sum {t in T: t>=tau and t<=tau+d-1} BASE_P2A[s,c,t])/d,
+            (sum {t in T: t>=tau and t<=tau+d-1} p_p2a[t])/d,
+            sum {t in T: t<=NPER[s]} p_grid_imp[t]*dt,
+            sum {t in T: t<=NPER[s]} p_grid_exp[t]*dt,
+            sum {t in T: t<=NPER[s]} (p_pv[t]+p_wd[t])*dt,
+            min {t in T0: t<=NPER[s]} h2_st[t],
+            max {t in T0: t<=NPER[s]} h2_st[t],
+            sum {t in T: t<=NPER[s]} ((p_pv[t]+p_wd[t])-p_match_load[t])*dt,
+            min {w in W: (w-1)*WEEK_HOURS+1 <= NPER[s]}
+              (sum {t in T:
+                    t<=NPER[s]
+                    and t>=(w-1)*WEEK_HOURS+1
+                    and t<=(if w*WEEK_HOURS<=NPER[s] then w*WEEK_HOURS else NPER[s])}
+                 ((p_pv[t]+p_wd[t])-p_match_load[t])*dt),
+            min {t in T: t<=NPER[s]} ((p_pv[t]+p_wd[t])-p_match_load[t])
+            >> "paired_flexibility_results.csv";
+        }
+      }
+    }
+  }
+}
+
+# ============================================================
+# Summary and strict nesting check RM <= PHYS
+# ============================================================
+for {s in SCENS, c in CASES, d in DURS: s = 3} {
+  for {q in 1..2} {
+    printf "%d,%d,%d,%s,%d,%.8f,%.8f,%.8f,%.8f,%.8f,%.8f,%.8f,%.8f,%.8f,%d\n",
+      s,c,d,
+      if q=1 then "INC" else "DEC",
+      sum {tau in T: TESTED[s,c,d,tau]=1} 1,
+      if sum {tau in T: TESTED[s,c,d,tau]=1} 1 > 0 then
+        ((if q=1 then
+            sum {tau in T: TESTED[s,c,d,tau]=1} F_PHYS_INC[s,c,d,tau]
+          else
+            sum {tau in T: TESTED[s,c,d,tau]=1} F_PHYS_DEC[s,c,d,tau])
+         / (sum {tau in T: TESTED[s,c,d,tau]=1} 1))
+      else 0,
+      if sum {tau in T: TESTED[s,c,d,tau]=1} 1 > 0 then
+        ((if q=1 then
+            sum {tau in T: TESTED[s,c,d,tau]=1} F_RM_INC[s,c,d,tau]
+          else
+            sum {tau in T: TESTED[s,c,d,tau]=1} F_RM_DEC[s,c,d,tau])
+         / (sum {tau in T: TESTED[s,c,d,tau]=1} 1))
+      else 0,
+      if q=1 then
+        (if sum {tau in T: TESTED[s,c,d,tau]=1} F_PHYS_INC[s,c,d,tau] > 1e-8 then
+           (sum {tau in T: TESTED[s,c,d,tau]=1} F_RM_INC[s,c,d,tau])
+           / (sum {tau in T: TESTED[s,c,d,tau]=1} F_PHYS_INC[s,c,d,tau])
+         else -1)
+      else
+        (if sum {tau in T: TESTED[s,c,d,tau]=1} F_PHYS_DEC[s,c,d,tau] > 1e-8 then
+           (sum {tau in T: TESTED[s,c,d,tau]=1} F_RM_DEC[s,c,d,tau])
+           / (sum {tau in T: TESTED[s,c,d,tau]=1} F_PHYS_DEC[s,c,d,tau])
+         else -1),
+      if sum {tau in T: TESTED[s,c,d,tau]=1} 1 > 0 then
+        ((if q=1 then sum {tau in T: TESTED[s,c,d,tau]=1} (if F_PHYS_INC[s,c,d,tau]>=1 then 1 else 0)
+                  else sum {tau in T: TESTED[s,c,d,tau]=1} (if F_PHYS_DEC[s,c,d,tau]>=1 then 1 else 0))
+         / (sum {tau in T: TESTED[s,c,d,tau]=1} 1))
+      else 0,
+      if sum {tau in T: TESTED[s,c,d,tau]=1} 1 > 0 then
+        ((if q=1 then sum {tau in T: TESTED[s,c,d,tau]=1} (if F_RM_INC[s,c,d,tau]>=1 then 1 else 0)
+                  else sum {tau in T: TESTED[s,c,d,tau]=1} (if F_RM_DEC[s,c,d,tau]>=1 then 1 else 0))
+         / (sum {tau in T: TESTED[s,c,d,tau]=1} 1))
+      else 0,
+      if q=1 then min {tau in T: TESTED[s,c,d,tau]=1} F_PHYS_INC[s,c,d,tau]
+             else min {tau in T: TESTED[s,c,d,tau]=1} F_PHYS_DEC[s,c,d,tau],
+      if q=1 then max {tau in T: TESTED[s,c,d,tau]=1} F_PHYS_INC[s,c,d,tau]
+             else max {tau in T: TESTED[s,c,d,tau]=1} F_PHYS_DEC[s,c,d,tau],
+      if q=1 then min {tau in T: TESTED[s,c,d,tau]=1} F_RM_INC[s,c,d,tau]
+             else min {tau in T: TESTED[s,c,d,tau]=1} F_RM_DEC[s,c,d,tau],
+      if q=1 then max {tau in T: TESTED[s,c,d,tau]=1} F_RM_INC[s,c,d,tau]
+             else max {tau in T: TESTED[s,c,d,tau]=1} F_RM_DEC[s,c,d,tau],
+      if q=1 then sum {tau in T: TESTED[s,c,d,tau]=1} (if F_RM_INC[s,c,d,tau] > F_PHYS_INC[s,c,d,tau]+1e-3 then 1 else 0)
+             else sum {tau in T: TESTED[s,c,d,tau]=1} (if F_RM_DEC[s,c,d,tau] > F_PHYS_DEC[s,c,d,tau]+1e-3 then 1 else 0)
+      >> "paired_retention_summary.csv";
+  }
+}
+
+printf "\n============================================================\n";
+printf " EXACT SB-PWL PAIRED FLEXIBILITY RUN COMPLETE\n";
+printf "============================================================\n";
+printf "Start spacing = %d h\n", START_STEP;
+printf "Secondary solve enabled = %d\n", RUN_SECONDARY;
+printf "Outputs:\n";
+printf "  paired_flexibility_results.csv\n";
+printf "  paired_retention_summary.csv\n";
+printf "Check rm_gt_phys_count = 0 in every summary row.\n";
+printf "============================================================\n";

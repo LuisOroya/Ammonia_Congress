@@ -1,0 +1,64 @@
+# ============================================================
+# flex_common.dat
+# Exact fixed installation from the 2025 exact SB-PWL planning run.
+# ============================================================
+data;
+
+param dt := 1;
+set N := 1 2 3 4 5 6;
+
+param: L        U        A             B :=
+1      0.15000  0.26401  20.43063320   0.30208347
+2      0.26401  0.38909  19.27048077   0.60837996
+3      0.38909  0.52523  18.25184625   1.00471954
+4      0.52523  0.67242  17.34366185   1.48172090
+5      0.67242  0.83068  16.53069005   2.02838137
+6      0.83068  1.00000  15.80032297   2.63508319
+;
+
+# Conservative upward-rounded Stage-1 reference design, now fixed.
+param P_PV_MAX  := 78.68;
+param P_WD_MAX  := 407.52;
+param H2_ST_MAX := 48180;
+
+# Renewable matching boundary: PEM stack + PEM BOP.
+param MATCH_FRACTION := 1.00;
+param MATCH_FULL_P2A := 0;
+param WEEK_HOURS := 168;
+
+# PEM
+param P_EL_MAX      := 94.7000;
+param H2_PROD_RATED := 1745.7945;
+param SEC_BOP       := 0.004000;
+
+# H2
+param SEC_H2_COMP := 0.001520;
+param H2_COMP_MAX := 1745.7945;
+param H2_ST_MIN_FRAC  := 0.05;
+param H2_ST_MAX_FRAC  := 1.00;
+param H2_ST_INIT_FRAC := 0.50;
+
+# N2 / NH3
+param LAMBDA_H2_NH3 := 0.1765;
+param LAMBDA_N2_NH3 := 0.8235;
+param N2_ASU_MAX  := 8145.39247;
+param N2_COMP_MAX := 8145.39247;
+param SEC_ASU     := 0.000095;
+param SEC_N2_COMP := 0.000270;
+param Q_NH3_MAX   := 9891.18697;
+param HB_MIN_LOAD := 0.80;
+param SEC_HB      := 0.000002;
+param NH3_REQ_FRAC := 0.90;
+
+# Grid economics used only if optional secondary solve is enabled.
+param C_GRID := 60.0;
+param EPS_EXPORT := 0.0001;
+
+# Flexibility numerics.
+param FLEX_DELTA_MAX := 120.0;
+param M_POWER   := 500.0;
+param M_GRID    := 500.0;
+
+# Numerical controls for DeltaP locking/reporting only.
+param EPS_DELTA     := 1e-4;
+param FLEX_ZERO_TOL := 1e-4;

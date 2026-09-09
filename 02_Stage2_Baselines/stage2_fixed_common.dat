@@ -1,0 +1,65 @@
+# ============================================================
+# stage2_fixed_common.dat
+# Stage 2A - fixed capacities from the EXACT SB-PWL planning run.
+# ============================================================
+data;
+
+param dt := 1;
+set N := 1 2 3 4 5 6;
+
+param: L        U        A             B :=
+1      0.15000  0.26401  20.43063320   0.30208347
+2      0.26401  0.38909  19.27048077   0.60837996
+3      0.38909  0.52523  18.25184625   1.00471954
+4      0.52523  0.67242  17.34366185   1.48172090
+5      0.67242  0.83068  16.53069005   2.02838137
+6      0.83068  1.00000  15.80032297   2.63508319
+;
+
+# ------------------------------------------------------------
+# FIXED conservative upward-rounded reference design from Stage 1
+# ------------------------------------------------------------
+param P_PV_MAX  := 78.68;
+param P_WD_MAX  := 407.52;
+param H2_ST_MAX := 48180;
+
+# Renewable matching
+param MATCH_FRACTION := 1.00;
+param MATCH_FULL_P2A := 0;
+param WEEK_HOURS := 168;
+
+# Fixed PEM
+param P_EL_MAX := 94.7000;
+param H2_PROD_RATED := 1745.7945;
+param SEC_BOP := 0.004000;
+
+# H2 subsystem
+param SEC_H2_COMP := 0.001520;
+param H2_COMP_MAX := 1745.7945;
+param H2_ST_MIN_FRAC  := 0.05;
+param H2_ST_MAX_FRAC  := 1.00;
+param H2_ST_INIT_FRAC := 0.50;
+
+# N2 / NH3 subsystem
+param LAMBDA_H2_NH3 := 0.1765;
+param LAMBDA_N2_NH3 := 0.8235;
+param N2_ASU_MAX := 8145.39247;
+param N2_COMP_MAX := 8145.39247;
+param SEC_ASU := 0.000095;
+param SEC_N2_COMP := 0.000270;
+param Q_NH3_MAX := 9891.18697;
+param HB_MIN_LOAD := 0.80;
+param SEC_HB := 0.000002;
+param NH3_REQ_FRAC := 0.90;
+
+# Grid economics
+param C_GRID := 60.0;
+
+# Retained at the same value used in the planning model for consistency.
+# This is only a tiny export-disposal penalty, not export revenue.
+param EPS_EXPORT := 0.0001;
+
+# Lexicographic baseline tie-breaker.
+# Stage A minimizes operating cost. Stage B locks Stage-A cost within
+# this absolute tolerance and minimizes stack electricity consumption.
+param COST_LOCK_EPS := 0.001;  # USD on probability-weighted monthly cost

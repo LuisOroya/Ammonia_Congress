@@ -1,0 +1,86 @@
+# ============================================================
+# planning_common.dat
+# Fixed conversion process + provisional economic assumptions.
+# PV, wind, and H2 storage capacities are VARIABLES in p2a_planning_scenarios.mod.
+# ============================================================
+
+data;
+
+param dt := 1;
+
+set N := 1 2 3 4 5 6;
+
+param: L        U        A             B :=
+1      0.15000  0.26401  20.43063320   0.30208347
+2      0.26401  0.38909  19.27048077   0.60837996
+3      0.38909  0.52523  18.25184625   1.00471954
+4      0.52523  0.67242  17.34366185   1.48172090
+5      0.67242  0.83068  16.53069005   2.02838137
+6      0.83068  1.00000  15.80032297   2.63508319
+;
+
+# ------------------------------------------------------------
+# Planning economics - provisional test values
+# PV/WD CAPEX and FOM are carried over from the user's prior
+# stochastic HPS planning study. Replace if the final paper adopts
+# another economic source.
+# ------------------------------------------------------------
+param CAPEX_PV := 727000;     # USD/MW
+param CAPEX_WD := 1079000;    # USD/MW
+param FOM_PV   := 7010;       # USD/(MW-year)
+param FOM_WD   := 20000;      # USD/(MW-year)
+
+# H2 tank cost assumptions carried over from the user's prior HPS planning model.
+# These are provisional and should be verified before publication.
+param CAPEX_H2_ST := 400;      # USD/kgH2
+param FOM_H2_ST   := 4;        # USD/(kgH2-year)
+
+# Capital recovery factors. For this provisional test the same 9%, 25-y
+# factor is used for PV/WD and H2 storage; CRF_H2_ST is separate so that
+# a tank-specific lifetime can later be adopted without changing the model.
+param CRF       := 0.1018062505;
+param CRF_H2_ST := 0.1018062505;
+param MONTHS_PER_YEAR := 12;
+
+# Keep the same provisional grid price used in the operational model.
+param C_GRID     := 60.0;      # USD/MWh
+param EPS_EXPORT := 0.0001;    # USD/MWh; disposal penalty, not revenue
+
+# 100% strict hourly matching of PEM stack + PEM BOP.
+param MATCH_FRACTION := 1.00;
+param MATCH_FULL_P2A := 0;
+
+# ------------------------------------------------------------
+# Fixed PEM
+# ------------------------------------------------------------
+param P_EL_MAX      := 94.7000;
+param H2_PROD_RATED := 1745.7945;
+param SEC_BOP       := 0.004000;
+
+# ------------------------------------------------------------
+# H2 subsystem
+# H2_ST_MAX is now optimized as a first-stage capacity variable.
+# ------------------------------------------------------------
+param SEC_H2_COMP := 0.001520;
+param H2_COMP_MAX := 1745.7945;
+
+param H2_ST_MIN_FRAC  := 0.05;
+param H2_ST_MAX_FRAC  := 1.00;
+param H2_ST_INIT_FRAC := 0.50;
+
+# ------------------------------------------------------------
+# Fixed N2 / NH3 subsystem
+# ------------------------------------------------------------
+param LAMBDA_H2_NH3 := 0.1765;
+param LAMBDA_N2_NH3 := 0.8235;
+
+param N2_ASU_MAX  := 8145.39247;
+param N2_COMP_MAX := 8145.39247;
+
+param SEC_ASU     := 0.000095;
+param SEC_N2_COMP := 0.000270;
+
+param Q_NH3_MAX    := 9891.18697;
+param HB_MIN_LOAD  := 0.80;
+param SEC_HB       := 0.000002;
+param NH3_REQ_FRAC := 0.90;

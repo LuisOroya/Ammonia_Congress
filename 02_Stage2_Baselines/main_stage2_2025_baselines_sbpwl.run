@@ -1,0 +1,287 @@
+# ============================================================
+# main_stage2_2025_baselines_sbpwl.run
+# Stage 2A exact SB-PWL baseline generation.
+#
+# For C0, C1, C2, C3:
+#   Stage A = minimize operating cost
+#   Stage B = lock Stage-A cost and minimize PEM stack energy
+#
+# Output trajectories from Stage B are the baselines intended for
+# the later paired PHYS/RM flexibility study.
+# ============================================================
+
+reset;
+
+model p2a_stage2_fixed_baselines_sbpwl.mod;
+data stage2_fixed_common.dat;
+data planning_scenarios_2025.dat;
+data planning_profiles_2025.dat;
+
+option solver gurobi;
+option presolve_eps 1e-10;
+option gurobi_options 'mipgap=0.001 mipfocus=2 presolve=2 threads=16 outlev= 1';
+
+# Primary cost lock must not restrict Stage A.
+drop PrimaryCostLock;
+
+# Scalar used to retain each Stage-A optimum for reporting.
+param PRIMARY_STAR;
+
+# ------------------------------------------------------------
+# Output files
+# ------------------------------------------------------------
+printf "case,case_name,primary_cost_star_USD,final_cost_USD,weighted_el_energy_MWh,weighted_grid_import_MWh,weighted_grid_export_MWh,weighted_res_used_MWh,weighted_res_curt_MWh\n"
+    > "stage2_case_summary.csv";
+
+printf "case,case_name,scenario,probability,hours,cost_USD,grid_import_MWh,grid_export_MWh,res_used_MWh,res_curt_MWh,p2a_MWh,el_stack_MWh,matched_MWh,nh3_kg,h2_min_kg,h2_max_kg,monthly_margin_MWh,weekly_min_margin_MWh,hourly_min_margin_MW,simul_imp_exp_hours,imp_with_curt_hours\n"
+    > "stage2_case_scenario_summary.csv";
+
+printf "case,case_name,scenario,t,p2a_MW,pel_MW,h2prod_kgph,h2st_kg,h2hb_kgph,nh3_kgph,n2_kgph,pv_MW,wind_MW,pv_curt_MW,wind_curt_MW,grid_imp_MW,grid_exp_MW,bop_MW,h2comp_MW,asu_MW,n2comp_MW,hb_MW,match_load_MW,hourly_res_minus_match_MW\n"
+    > "stage2_baselines.csv";
+
+printf "case,case_name,scenario,t,segment,y_seg,p_el_seg_MW\n"
+    > "stage2_segments.csv";
+
+for {c in 0..3} {
+
+    # --------------------------------------------------------
+    # Select matching case
+    # --------------------------------------------------------
+    if c = 0 then {
+        let MATCH_MONTHLY := 0;
+        let MATCH_WEEKLY  := 0;
+        let MATCH_HOURLY  := 0;
+    }
+    if c = 1 then {
+        let MATCH_MONTHLY := 1;
+        let MATCH_WEEKLY  := 0;
+        let MATCH_HOURLY  := 0;
+    }
+    if c = 2 then {
+        let MATCH_MONTHLY := 0;
+        let MATCH_WEEKLY  := 1;
+        let MATCH_HOURLY  := 0;
+    }
+    if c = 3 then {
+        let MATCH_MONTHLY := 0;
+        let MATCH_WEEKLY  := 0;
+        let MATCH_HOURLY  := 1;
+    }
+
+    # ========================================================
+    # STAGE A - primary economic optimum
+    # ========================================================
+    drop PrimaryCostLock;
+    objective ExpectedOperatingCost;
+    solve;
+
+    if solve_result != "solved" then {
+        printf "\nCASE C%d - PRIMARY SOLVE FAILED: %s\n", c, solve_result;
+        exit;
+    }
+
+    let COST_LOCK := ExpectedOperatingCost + COST_LOCK_EPS;
+
+    printf "\n============================================================\n";
+    if c = 0 then printf " C0 - NO MATCHING\n";
+    if c = 1 then printf " C1 - MONTHLY MATCHING\n";
+    if c = 2 then printf " C2 - WEEKLY MATCHING\n";
+    if c = 3 then printf " C3 - HOURLY MATCHING\n";
+    printf "============================================================\n";
+    printf "Stage-A operating cost = %.10f USD/month-equivalent\n",
+        ExpectedOperatingCost;
+
+    # Save primary optimum value for reporting.
+    let PRIMARY_STAR := ExpectedOperatingCost;
+
+    # ========================================================
+    # STAGE B - energy-efficient tie-breaker
+    # ========================================================
+    restore PrimaryCostLock;
+    objective ExpectedELEnergy;
+    solve;
+
+    if solve_result != "solved" then {
+        printf "\nCASE C%d - SECONDARY SOLVE FAILED: %s\n", c, solve_result;
+        exit;
+    }
+
+    printf "Stage-B final cost      = %.10f USD/month-equivalent\n",
+        ExpectedOperatingCost;
+    printf "Stage-B EL energy       = %.10f MWh/month-equivalent\n",
+        ExpectedELEnergy;
+    printf "Weighted grid import    = %.10f MWh/month-equivalent\n",
+        sum {s in S} PROB[s]
+          * sum {t in T: t <= NPER[s]} p_grid_imp[s,t]*dt;
+    printf "Weighted RES curtailment= %.10f MWh/month-equivalent\n",
+        sum {s in S} PROB[s]
+          * sum {t in T: t <= NPER[s]}
+            (p_pv_curt[s,t]+p_wd_curt[s,t])*dt;
+
+    # --------------------------------------------------------
+    # Overall case summary
+    # --------------------------------------------------------
+    printf "%d,", c >> "stage2_case_summary.csv";
+    if c = 0 then printf "NO_MATCH," >> "stage2_case_summary.csv";
+    if c = 1 then printf "MONTHLY,"  >> "stage2_case_summary.csv";
+    if c = 2 then printf "WEEKLY,"   >> "stage2_case_summary.csv";
+    if c = 3 then printf "HOURLY,"   >> "stage2_case_summary.csv";
+
+    printf "%.10f,%.10f,%.10f,%.10f,%.10f,%.10f,%.10f\n",
+        PRIMARY_STAR,
+        ExpectedOperatingCost,
+        ExpectedELEnergy,
+        sum {s in S} PROB[s]
+          * sum {t in T: t <= NPER[s]} p_grid_imp[s,t]*dt,
+        sum {s in S} PROB[s]
+          * sum {t in T: t <= NPER[s]} p_grid_exp[s,t]*dt,
+        sum {s in S} PROB[s]
+          * sum {t in T: t <= NPER[s]} (p_pv[s,t]+p_wd[s,t])*dt,
+        sum {s in S} PROB[s]
+          * sum {t in T: t <= NPER[s]}
+            (p_pv_curt[s,t]+p_wd_curt[s,t])*dt
+        >> "stage2_case_summary.csv";
+
+    # --------------------------------------------------------
+    # Scenario summaries and hourly baselines
+    # --------------------------------------------------------
+    for {s in S} {
+
+        printf "%d,", c >> "stage2_case_scenario_summary.csv";
+        if c = 0 then printf "NO_MATCH," >> "stage2_case_scenario_summary.csv";
+        if c = 1 then printf "MONTHLY,"  >> "stage2_case_scenario_summary.csv";
+        if c = 2 then printf "WEEKLY,"   >> "stage2_case_scenario_summary.csv";
+        if c = 3 then printf "HOURLY,"   >> "stage2_case_scenario_summary.csv";
+
+        printf "%d,%.10f,%d,%.10f,%.10f,%.10f,%.10f,%.10f,%.10f,%.10f,%.10f,%.10f,%.10f,%.10f,%.10f,%.10f,%.10f,%d,%d\n",
+            s,
+            PROB[s],
+            NPER[s],
+
+            sum {t in T: t <= NPER[s]}
+                (C_GRID*p_grid_imp[s,t] + EPS_EXPORT*p_grid_exp[s,t])*dt,
+
+            sum {t in T: t <= NPER[s]} p_grid_imp[s,t]*dt,
+            sum {t in T: t <= NPER[s]} p_grid_exp[s,t]*dt,
+
+            sum {t in T: t <= NPER[s]}
+                (p_pv[s,t]+p_wd[s,t])*dt,
+
+            sum {t in T: t <= NPER[s]}
+                (p_pv_curt[s,t]+p_wd_curt[s,t])*dt,
+
+            sum {t in T: t <= NPER[s]} p_p2a[s,t]*dt,
+            sum {t in T: t <= NPER[s]} p_el_stack[s,t]*dt,
+            sum {t in T: t <= NPER[s]} p_match_load[s,t]*dt,
+            sum {t in T: t <= NPER[s]} nh3_prod[s,t]*dt,
+
+            min {t in T0: t <= NPER[s]} h2_st[s,t],
+            max {t in T0: t <= NPER[s]} h2_st[s,t],
+
+            # Monthly RES-minus-matching energy margin [MWh]
+            sum {t in T: t <= NPER[s]}
+                ((p_pv[s,t]+p_wd[s,t]) - MATCH_FRACTION*p_match_load[s,t])*dt,
+
+            # Minimum non-overlapping weekly-block margin [MWh]
+            min {w in W: (w-1)*WEEK_HOURS + 1 <= NPER[s]}
+                (
+                  sum {t in T:
+                          t <= NPER[s]
+                          and t >= (w-1)*WEEK_HOURS + 1
+                          and t <= (if w*WEEK_HOURS <= NPER[s]
+                                    then w*WEEK_HOURS else NPER[s])}
+                      ((p_pv[s,t]+p_wd[s,t])
+                       - MATCH_FRACTION*p_match_load[s,t])*dt
+                ),
+
+            # Minimum hourly margin [MW]
+            min {t in T: t <= NPER[s]}
+                ((p_pv[s,t]+p_wd[s,t])
+                 - MATCH_FRACTION*p_match_load[s,t]),
+
+            # Simultaneous import/export hours
+            sum {t in T: t <= NPER[s]}
+                (if p_grid_imp[s,t] > 1e-6 and p_grid_exp[s,t] > 1e-6
+                 then 1 else 0),
+
+            # Grid-import hours with simultaneous RES curtailment
+            sum {t in T: t <= NPER[s]}
+                (if p_grid_imp[s,t] > 1e-6
+                    and (p_pv_curt[s,t]+p_wd_curt[s,t]) > 1e-6
+                 then 1 else 0)
+
+            >> "stage2_case_scenario_summary.csv";
+
+        for {t in T: t <= NPER[s]} {
+
+            printf "%d,", c >> "stage2_baselines.csv";
+            if c = 0 then printf "NO_MATCH," >> "stage2_baselines.csv";
+            if c = 1 then printf "MONTHLY,"  >> "stage2_baselines.csv";
+            if c = 2 then printf "WEEKLY,"   >> "stage2_baselines.csv";
+            if c = 3 then printf "HOURLY,"   >> "stage2_baselines.csv";
+
+            printf "%d,%d,%.10f,%.10f,%.10f,%.10f,%.10f,%.10f,%.10f,%.10f,%.10f,%.10f,%.10f,%.10f,%.10f,%.10f,%.10f,%.10f,%.10f,%.10f,%.10f,%.10f\n",
+                s,
+                t,
+                p_p2a[s,t],
+                p_el_stack[s,t],
+                h2_prod[s,t],
+                h2_st[s,t],
+                h2_hb[s,t],
+                nh3_prod[s,t],
+                n2_prod[s,t],
+                p_pv[s,t],
+                p_wd[s,t],
+                p_pv_curt[s,t],
+                p_wd_curt[s,t],
+                p_grid_imp[s,t],
+                p_grid_exp[s,t],
+                p_bop[s,t],
+                p_h2_comp[s,t],
+                p_asu[s,t],
+                p_n2_comp[s,t],
+                p_hb[s,t],
+                p_match_load[s,t],
+                (p_pv[s,t]+p_wd[s,t]) - MATCH_FRACTION*p_match_load[s,t]
+                >> "stage2_baselines.csv";
+
+            for {n in N} {
+                printf "%d,", c >> "stage2_segments.csv";
+                if c = 0 then printf "NO_MATCH," >> "stage2_segments.csv";
+                if c = 1 then printf "MONTHLY,"  >> "stage2_segments.csv";
+                if c = 2 then printf "WEEKLY,"   >> "stage2_segments.csv";
+                if c = 3 then printf "HOURLY,"   >> "stage2_segments.csv";
+
+                printf "%d,%d,%d,%.0f,%.10f\n",
+                    s, t, n, y_seg[n,s,t], p_el_seg[n,s,t]
+                    >> "stage2_segments.csv";
+            }
+        }
+    }
+}
+
+printf "\n============================================================\n";
+printf " STAGE 2A EXACT SB-PWL BASELINE GENERATION COMPLETE\n";
+printf "============================================================\n";
+printf "Fixed capacities used:\n";
+printf "  PV      = %.6f MW\n", P_PV_MAX;
+printf "  Wind    = %.6f MW\n", P_WD_MAX;
+printf "  H2 tank = %.6f kg (%.6f h rated H2)\n",
+    H2_ST_MAX, H2_ST_MAX/H2_PROD_RATED;
+printf "Baseline selection:\n";
+printf "  Stage A = minimum operating cost\n";
+printf "  Stage B = minimum PEM stack energy with cost locked to Stage A + %.6g USD\n",
+    COST_LOCK_EPS;
+printf "Outputs:\n";
+printf "  stage2_case_summary.csv\n";
+printf "  stage2_case_scenario_summary.csv\n";
+printf "  stage2_baselines.csv\n";
+printf "  stage2_segments.csv\n";
+printf "  stage2_reference_design.csv\n";
+# End of baseline run.
+
+# ------------------------------------------------------------
+# Reference-design metadata for Stage 3 consistency checks
+# ------------------------------------------------------------
+printf "pv_MW,wind_MW,h2_storage_kg\n" > "stage2_reference_design.csv";
+printf "%.8f,%.8f,%.8f\n", P_PV_MAX, P_WD_MAX, H2_ST_MAX >> "stage2_reference_design.csv";

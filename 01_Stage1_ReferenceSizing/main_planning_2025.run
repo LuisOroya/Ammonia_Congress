@@ -1,0 +1,146 @@
+# ============================================================
+# main_planning_2025.run
+# Provisional planning test: 12 calendar months of 2025 are treated
+# as 12 monthly scenarios with equal probability 1/12.
+#
+# Later, replace planning_scenarios_2025.dat and
+# planning_profiles_2025.dat with the medoids/probabilities supplied
+# by the scenario-selection methodology. The .mod file does not need
+# to change.
+# ============================================================
+
+reset;
+
+model p2a_planning_scenarios.mod;
+data planning_common.dat;
+data planning_scenarios_2025.dat;
+data planning_profiles_2025.dat;
+
+option solver gurobi;
+option presolve_eps 1e-10;
+# 0.1% gap is a practical first test for the 8760-h deterministic equivalent.
+# Tighten later if desired.
+option gurobi_options 'mipgap=0.001 mipfocus=2 presolve=2 threads=16';
+
+solve;
+
+if solve_result != "solved" then {
+    printf "\nPLANNING MODEL FAILED: %s\n", solve_result;
+    exit;
+}
+
+printf "\n============================================================\n";
+printf " STOCHASTIC / MULTI-SCENARIO RES + H2 STORAGE PLANNING SOLVED\n";
+printf "============================================================\n";
+printf "PV capacity             = %.6f MW\n", P_PV_MAX;
+printf "Wind capacity           = %.6f MW\n", P_WD_MAX;
+printf "H2 storage capacity     = %.6f kgH2\n", H2_ST_MAX;
+printf "H2 storage duration     = %.6f h at rated H2 production\n", H2_ST_MAX / H2_PROD_RATED;
+printf "Annualized total cost   = %.6f USD/year\n", AnnualizedExpectedCost;
+printf "Annualized investment   = %.6f USD/year\n",
+    CRF * (CAPEX_PV * P_PV_MAX + CAPEX_WD * P_WD_MAX)
+    + CRF_H2_ST * CAPEX_H2_ST * H2_ST_MAX;
+printf "Fixed PV/WD O&M         = %.6f USD/year\n",
+    FOM_PV * P_PV_MAX + FOM_WD * P_WD_MAX;
+printf "Fixed H2 tank O&M       = %.6f USD/year\n",
+    FOM_H2_ST * H2_ST_MAX;
+printf "Expected annual grid op = %.6f USD/year\n",
+    MONTHS_PER_YEAR * sum {s in S} PROB[s]
+      * sum {t in T: t <= NPER[s]}
+        (C_GRID * p_grid_imp[s,t] + EPS_EXPORT * p_grid_exp[s,t]) * dt;
+printf "Expected annual import  = %.6f MWh/year\n",
+    MONTHS_PER_YEAR * sum {s in S} PROB[s]
+      * sum {t in T: t <= NPER[s]} p_grid_imp[s,t] * dt;
+printf "============================================================\n";
+
+# ------------------------------------------------------------
+# Capacity files for later operational/flexibility runs.
+# ------------------------------------------------------------
+# Preserve the numerical optimum for traceability.
+printf "# Numerical Stage-1 optimum (do not use as engineering precision)\n" > "planned_capacities_exact.dat";
+printf "param P_PV_MAX := %.10f;\n", P_PV_MAX >> "planned_capacities_exact.dat";
+printf "param P_WD_MAX := %.10f;\n", P_WD_MAX >> "planned_capacities_exact.dat";
+printf "param H2_ST_MAX := %.10f;\n", H2_ST_MAX >> "planned_capacities_exact.dat";
+
+# Conservative engineering rounding used by Stages 2 and 3:
+#   PV/wind upward to 0.01 MW; H2 storage upward to 10 kg.
+printf "# Conservative upward-rounded reference design from Stage 1\n" > "reference_design_rounded.dat";
+printf "data;\n" >> "reference_design_rounded.dat";
+printf "param P_PV_MAX := %.2f;\n", ceil(P_PV_MAX*100)/100 >> "reference_design_rounded.dat";
+printf "param P_WD_MAX := %.2f;\n", ceil(P_WD_MAX*100)/100 >> "reference_design_rounded.dat";
+printf "param H2_ST_MAX := %.0f;\n", ceil(H2_ST_MAX/10)*10 >> "reference_design_rounded.dat";
+
+# ------------------------------------------------------------
+# Overall summary
+# ------------------------------------------------------------
+printf "objective_USD_per_year,pv_MW,wind_MW,h2_storage_kg,h2_storage_hours_at_rated_h2,annualized_investment_USD_per_year,pv_wind_fixed_OM_USD_per_year,h2_storage_fixed_OM_USD_per_year,expected_grid_operation_USD_per_year,expected_grid_import_MWh_per_year,expected_grid_export_MWh_per_year\n"
+    > "planning_summary.csv";
+
+printf "%.8f,%.8f,%.8f,%.8f,%.8f,%.8f,%.8f,%.8f,%.8f,%.8f,%.8f\n",
+    AnnualizedExpectedCost,
+    P_PV_MAX,
+    P_WD_MAX,
+    H2_ST_MAX,
+    H2_ST_MAX / H2_PROD_RATED,
+    CRF * (CAPEX_PV * P_PV_MAX + CAPEX_WD * P_WD_MAX)
+      + CRF_H2_ST * CAPEX_H2_ST * H2_ST_MAX,
+    FOM_PV * P_PV_MAX + FOM_WD * P_WD_MAX,
+    FOM_H2_ST * H2_ST_MAX,
+    MONTHS_PER_YEAR * sum {s in S} PROB[s]
+      * sum {t in T: t <= NPER[s]}
+        (C_GRID * p_grid_imp[s,t] + EPS_EXPORT * p_grid_exp[s,t]) * dt,
+    MONTHS_PER_YEAR * sum {s in S} PROB[s]
+      * sum {t in T: t <= NPER[s]} p_grid_imp[s,t] * dt,
+    MONTHS_PER_YEAR * sum {s in S} PROB[s]
+      * sum {t in T: t <= NPER[s]} p_grid_exp[s,t] * dt
+    >> "planning_summary.csv";
+
+# ------------------------------------------------------------
+# Per-scenario summaries
+# ------------------------------------------------------------
+printf "scenario,probability,hours,h2_storage_capacity_kg,monthly_grid_import_MWh,monthly_grid_export_MWh,res_generation_MWh,res_curtailment_MWh,p2a_energy_MWh,matched_energy_MWh,nh3_kg,h2_min_kg,h2_max_kg\n"
+    > "planning_scenario_summary.csv";
+
+for {s in S} {
+    printf "%d,%.10f,%d,%.8f,%.8f,%.8f,%.8f,%.8f,%.8f,%.8f,%.8f,%.8f,%.8f\n",
+        s,
+        PROB[s],
+        NPER[s],
+        H2_ST_MAX,
+        sum {t in T: t <= NPER[s]} p_grid_imp[s,t] * dt,
+        sum {t in T: t <= NPER[s]} p_grid_exp[s,t] * dt,
+        sum {t in T: t <= NPER[s]} (p_pv[s,t] + p_wd[s,t]) * dt,
+        sum {t in T: t <= NPER[s]} (p_pv_curt[s,t] + p_wd_curt[s,t]) * dt,
+        sum {t in T: t <= NPER[s]} p_p2a[s,t] * dt,
+        sum {t in T: t <= NPER[s]} p_match_load[s,t] * dt,
+        sum {t in T: t <= NPER[s]} nh3_prod[s,t] * dt,
+        min {t in T0: t <= NPER[s]} h2_st[s,t],
+        max {t in T0: t <= NPER[s]} h2_st[s,t]
+        >> "planning_scenario_summary.csv";
+}
+
+# ------------------------------------------------------------
+# Hourly dispatch, useful for diagnostics.
+# ------------------------------------------------------------
+printf "scenario,t,pv_pu,wind_pu,pv_MW,wind_MW,pv_curt_MW,wind_curt_MW,grid_import_MW,grid_export_MW,p_el_MW,p_p2a_MW,p_match_MW,h2_prod_kgph,h2_storage_kg,nh3_kgph\n"
+    > "planning_dispatch.csv";
+
+for {s in S, t in T: t <= NPER[s]} {
+    printf "%d,%d,%.6f,%.6f,%.8f,%.8f,%.8f,%.8f,%.8f,%.8f,%.8f,%.8f,%.8f,%.8f,%.8f,%.8f\n",
+        s, t,
+        zeta_PV[s,t], zeta_WD[s,t],
+        p_pv[s,t], p_wd[s,t],
+        p_pv_curt[s,t], p_wd_curt[s,t],
+        p_grid_imp[s,t], p_grid_exp[s,t],
+        p_el_stack[s,t], p_p2a[s,t], p_match_load[s,t],
+        h2_prod[s,t], h2_st[s,t], nh3_prod[s,t]
+        >> "planning_dispatch.csv";
+}
+
+printf "\nOutputs:\n";
+printf "  planned_capacities_exact.dat\n";
+printf "  reference_design_rounded.dat\n";
+printf "  planning_summary.csv\n";
+printf "  planning_scenario_summary.csv\n";
+printf "  planning_dispatch.csv\n";
+printf "============================================================\n";

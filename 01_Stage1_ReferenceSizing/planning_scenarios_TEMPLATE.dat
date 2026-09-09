@@ -1,0 +1,19 @@
+# TEMPLATE for the final representative monthly scenarios.
+# Replace M, NPER and PROB after scenario selection.
+# TMAX can stay 744 for ordinary calendar months, including leap February.
+
+set S := 1 2 3 4 5 6;
+param TMAX := 744;
+
+param: NPER PROB :=
+1  720  0.20
+2  744  0.18
+3  672  0.17
+4  744  0.16
+5  720  0.15
+6  744  0.14
+;
+
+# IMPORTANT: probabilities above are examples only.
+# Final values must come from cluster membership / scenario-selection weights
+# and sum exactly to 1.
