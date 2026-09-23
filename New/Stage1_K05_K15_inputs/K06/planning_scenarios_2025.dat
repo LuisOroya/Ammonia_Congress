@@ -1,0 +1,24 @@
+# ============================================================
+# planning_scenarios_2025.dat
+# Representative monthly scenarios, K=6.
+# Scenario IDs map to the medoid months listed below.
+# ============================================================
+
+# s=1 -> M201603 (2016-03), cluster months=21
+# s=2 -> M201907 (2019-07), cluster months=25
+# s=3 -> M201911 (2019-11), cluster months=28
+# s=4 -> M202005 (2020-05), cluster months=32
+# s=5 -> M202304 (2023-04), cluster months=11
+# s=6 -> M202408 (2024-08), cluster months=14
+
+set S := 1 2 3 4 5 6;
+param TMAX := 744;
+
+param: NPER PROB :=
+ 1 744 0.160305343511450
+ 2 744 0.190839694656489
+ 3 720 0.213740458015267
+ 4 744 0.244274809160305
+ 5 720 0.083969465648855
+ 6 744 0.106870229007634
+;

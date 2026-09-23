@@ -1,0 +1,10 @@
+Stage 3 v8 patch
+================
+AMPL presolve tolerance changed from 1e-10 to 1e-7 in both pilot and full run files.
+Reason: the full K=9 sweep reached a near-end-of-month activation where AMPL presolve
+reported Monthly_NH3_Requirement infeasible by only 1.69966e-08, and explicitly
+suggested presolve_eps >= 2.04e-08. The value 1e-7 safely exceeds that numerical
+threshold while remaining negligible relative to the monthly NH3 quantity (~5.7e5).
+
+No physical constraint, objective, replay tolerance, reporting threshold, sampling,
+or Gurobi mipgap setting was changed. Gurobi still solves each MILP to mipgap=0.

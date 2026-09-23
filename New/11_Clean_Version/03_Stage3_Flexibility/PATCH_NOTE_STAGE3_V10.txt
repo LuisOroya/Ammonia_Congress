@@ -1,0 +1,9 @@
+Stage 3 v10 patch
+=================
+
+Fixed an AMPL declaration-order syntax error introduced in v9.
+HB_MIN_LOAD is now declared before NH3_REQ_FRAC, because the latter uses
+HB_MIN_LOAD in its declaration bound.
+
+No mathematical formulation, numerical tolerance, data, event sampling,
+or solver option was changed relative to v9.

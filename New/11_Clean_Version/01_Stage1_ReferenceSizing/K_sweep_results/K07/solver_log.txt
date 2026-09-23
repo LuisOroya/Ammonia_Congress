@@ -1,0 +1,158 @@
+Gurobi 13.0.2:   mip:gap = 0.001
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+Set parameter LogToConsole to value 1
+  tech:outlev = 1
+
+AMPL MP initial flat model has 151526 variables (0 integer, 30336 binary);
+Objectives: 1 linear; 
+Constraints:  154201 linear;
+
+AMPL MP final model has 151526 variables (0 integer, 30336 binary);
+Objectives: 1 linear; 
+Constraints:  154201 linear;
+
+
+Set parameter InfUnbdInfo to value 1
+Gurobi Optimizer version 13.0.2 build v13.0.2rc1 (win64 - Windows 11+.0 (26200.2))
+
+CPU model: 13th Gen Intel(R) Core(TM) i7-13700, instruction set [SSE2|AVX|AVX2]
+Thread count: 16 physical cores, 24 logical processors, using up to 16 threads
+
+Non-default parameters:
+MIPGap  0.001
+MIPFocus  2
+InfUnbdInfo  1
+Presolve  2
+Threads  16
+
+Optimize a model with 154201 rows, 151526 columns and 477438 nonzeros (Min)
+Model fingerprint: 0xa21a0772
+Model has 10131 linear objective coefficients
+Variable types: 121190 continuous, 30336 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [2e-06, 2e+02]
+  Objective range  [6e-05, 1e+05]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 7e+06]
+
+Presolve removed 48258 rows and 58106 columns
+Presolve time: 1.01s
+Presolved: 105943 rows, 93420 columns, 358524 nonzeros
+Variable types: 63084 continuous, 30336 integer (30336 binary)
+Root relaxation presolve removed 37 rows and 0 columns
+Root relaxation presolved: 105906 rows, 93420 columns, 358447 nonzeros
+
+Deterministic concurrent LP optimizer: primal and dual simplex
+Showing primal log only...
+
+
+Root simplex log...
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+  129932    1.0221400e+10   0.000000e+00   1.360216e+09      5s
+  141739    1.1519861e+08   0.000000e+00   6.487924e+06     10s
+  146043    1.1311917e+08   0.000000e+00   0.000000e+00     12s
+Concurrent spin time: 3.63s (can be avoided by choosing Method=3)
+
+Solved with primal simplex
+  146043    1.1311917e+08   0.000000e+00   0.000000e+00     16s
+
+Root relaxation: objective 1.131192e+08, 146043 iterations, 14.16 seconds (29.88 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 1.1312e+08    0  297          - 1.1312e+08      -     -   21s
+H    0     0                    1.853605e+08 1.1312e+08  39.0%     -   24s
+     0     0 1.1312e+08    0  309 1.8536e+08 1.1312e+08  39.0%     -   36s
+H    0     0                    1.847528e+08 1.1312e+08  38.8%     -   38s
+     0     0 1.1312e+08    0  311 1.8475e+08 1.1312e+08  38.8%     -   38s
+     0     0 1.1312e+08    0  314 1.8475e+08 1.1312e+08  38.8%     -   50s
+     0     0 1.1312e+08    0  314 1.8475e+08 1.1312e+08  38.8%     -   52s
+     0     0 1.1312e+08    0  314 1.8475e+08 1.1312e+08  38.8%     -   63s
+H    0     0                    1.165287e+08 1.1312e+08  2.92%     -   75s
+     0     0 1.1313e+08    0  493 1.1653e+08 1.1313e+08  2.91%     -   77s
+     0     0 1.1313e+08    0  492 1.1653e+08 1.1313e+08  2.91%     -   77s
+     0     0 1.1314e+08    0  492 1.1653e+08 1.1314e+08  2.91%     -   78s
+     0     0 1.1314e+08    0  492 1.1653e+08 1.1314e+08  2.91%     -   90s
+     0     0 1.1314e+08    0  493 1.1653e+08 1.1314e+08  2.91%     -   91s
+     0     0 1.1322e+08    0  484 1.1653e+08 1.1322e+08  2.84%     -  105s
+     0     0 1.1322e+08    0  485 1.1653e+08 1.1322e+08  2.84%     -  109s
+     0     0 1.1329e+08    0  454 1.1653e+08 1.1329e+08  2.78%     -  124s
+     0     0 1.1330e+08    0  452 1.1653e+08 1.1330e+08  2.77%     -  124s
+     0     0 1.1330e+08    0  470 1.1653e+08 1.1330e+08  2.77%     -  125s
+H    0     0                    1.151882e+08 1.1330e+08  1.64%     -  142s
+H    0     0                    1.148284e+08 1.1330e+08  1.33%     -  142s
+     0     0 1.1330e+08    0  484 1.1483e+08 1.1330e+08  1.33%     -  142s
+     0     0 1.1334e+08    0  489 1.1483e+08 1.1334e+08  1.30%     -  143s
+     0     0 1.1339e+08    0  489 1.1483e+08 1.1339e+08  1.26%     -  145s
+     0     0 1.1339e+08    0  483 1.1483e+08 1.1339e+08  1.25%     -  160s
+     0     0 1.1343e+08    0  487 1.1483e+08 1.1343e+08  1.21%     -  160s
+     0     0 1.1343e+08    0  487 1.1483e+08 1.1343e+08  1.21%     -  161s
+H    0     0                    1.145198e+08 1.1343e+08  0.95%     -  174s
+     0     0 1.1350e+08    0  486 1.1452e+08 1.1350e+08  0.89%     -  175s
+     0     0 1.1350e+08    0  526 1.1452e+08 1.1350e+08  0.89%     -  175s
+     0     0 1.1350e+08    0  529 1.1452e+08 1.1350e+08  0.89%     -  175s
+     0     0 1.1355e+08    0  565 1.1452e+08 1.1355e+08  0.84%     -  191s
+     0     0 1.1356e+08    0  576 1.1452e+08 1.1356e+08  0.84%     -  192s
+     0     0 1.1356e+08    0  577 1.1452e+08 1.1356e+08  0.84%     -  192s
+H    0     0                    1.143878e+08 1.1356e+08  0.73%     -  209s
+     0     0 1.1356e+08    0  580 1.1439e+08 1.1356e+08  0.72%     -  209s
+     0     0 1.1368e+08    0  576 1.1439e+08 1.1368e+08  0.62%     -  209s
+     0     0 1.1368e+08    0  575 1.1439e+08 1.1368e+08  0.61%     -  209s
+H    0     0                    1.143878e+08 1.1368e+08  0.61%     -  211s
+     0     0 1.1391e+08    0  577 1.1439e+08 1.1391e+08  0.41%     -  223s
+     0     0 1.1392e+08    0  578 1.1439e+08 1.1392e+08  0.41%     -  224s
+H    0     0                    1.143878e+08 1.1392e+08  0.41%     -  236s
+     0     0 1.1405e+08    0  597 1.1439e+08 1.1405e+08  0.29%     -  237s
+H    0     0                    1.143591e+08 1.1406e+08  0.26%     -  238s
+     0     0 1.1406e+08    0  601 1.1436e+08 1.1406e+08  0.26%     -  238s
+     0     0 1.1424e+08    0  591 1.1436e+08 1.1424e+08  0.11%     -  252s
+     0     0 1.1424e+08    0  592 1.1436e+08 1.1424e+08  0.10%     -  252s
+     0     0 1.1424e+08    0  592 1.1436e+08 1.1424e+08  0.10%     -  252s
+
+Cutting planes:
+  Lift-and-project: 14
+  Implied bound: 613
+  Projected implied bound: 1
+  MIR: 200
+  Flow cover: 218
+  RLT: 1
+  Relax-and-lift: 3007
+
+Explored 1 nodes (195447 simplex iterations) in 253.59 seconds (383.91 work units)
+Thread count was 16 (of 24 available processors)
+
+Solution count 10: 1.14359e+08 1.14359e+08 1.14388e+08 ... 1.84753e+08
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 1.143590714036e+08, best bound 1.142489082051e+08, gap 0.0963%
+Gurobi 13.0.2: optimal solution; objective 114359071.4
+195447 simplex iterations
+1 branching node
+absmipgap=110163, relmipgap=0.00096331
+
+============================================================
+ STOCHASTIC / MULTI-SCENARIO RES + H2 STORAGE PLANNING SOLVED
+============================================================
+PV capacity             = 182.121151 MW
+Wind capacity           = 756.301292 MW
+H2 storage capacity     = 30238.236241 kgH2
+H2 storage duration     = 17.320616 h at rated H2 production
+Annualized total cost   = 114359071.403583 USD/year
+Annualized investment   = 97789634.039461 USD/year
+Fixed PV/WD O&M         = 16402695.106316 USD/year
+Fixed H2 tank O&M       = 120952.944965 USD/year
+Expected annual grid op = 45789.312841 USD/year
+Expected annual import  = 763.155214 MWh/year
+============================================================
+
+Outputs:
+  planned_capacities_exact.dat
+  reference_design_rounded.dat
+  planning_summary.csv
+  planning_scenario_summary.csv
+  planning_dispatch.csv
+============================================================

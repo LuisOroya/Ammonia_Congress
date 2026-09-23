@@ -1,0 +1,2 @@
+objective_USD_per_year,pv_MW,wind_MW,h2_storage_kg,h2_storage_hours_at_rated_h2,annualized_investment_USD_per_year,pv_wind_fixed_OM_USD_per_year,h2_storage_fixed_OM_USD_per_year,expected_grid_operation_USD_per_year,expected_grid_import_MWh_per_year,expected_grid_export_MWh_per_year
+79995847.70497561,175.45059546,498.03406447,22728.46364650,13.01897998,68619726.27391562,11190589.96353425,90913.85458600,94617.61293962,1576.96021566,0.00000000

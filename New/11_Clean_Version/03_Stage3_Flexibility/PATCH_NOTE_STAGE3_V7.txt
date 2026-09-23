@@ -1,0 +1,14 @@
+Stage-3 v7 reporting/analysis patch
+
+1. FLEX_ZERO_TOL increased from 1e-4 MW to 1e-3 MW (1 kW).
+   This affects only reporting/ratio classification, not the optimization model.
+   Tiny replay-tolerance residues are therefore reported as zero flexibility.
+
+2. analyze_stage3_results.py now sanitizes <=1e-3 MW values to zero before
+   aggregation and retained-ratio calculations.
+
+3. Probability-weighted summaries now normalize over the probability mass
+   actually present in the input file. The new probability_coverage column is
+   1.0 for the final K=9 sweep and 0.0381679... for the s=4-only pilot.
+   This prevents pilot MW values from being spuriously scaled by the scenario's
+   probability while leaving the full K=9 results unchanged.

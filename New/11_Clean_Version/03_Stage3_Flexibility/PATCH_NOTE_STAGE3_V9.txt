@@ -1,0 +1,27 @@
+Stage-3 v9 numerical replay patch
+================================
+
+Observed issue
+--------------
+A late-hour HOURLY RM event (s=4, d=4 h, tau=691, INC) was declared
+infeasible even though its PHYS optimum was only the 1e-4 MW replay buffer.
+Because the Stage-2 hourly baseline itself is feasible, RM must also be
+feasible at zero physical activation.  This identifies decimal replay of
+Stage-2 boundary/accounting values as the source, not physical infeasibility.
+
+Changes
+-------
+1. Hourly and monthly renewable-matching constraints remain EXACTLY unchanged.
+2. Stage-2 H2 boundary states are replayed within +/-1e-4 kg (0.1 g).
+3. Terminal H2 uses the exact Stage-2 target 0.50*H2_ST_MAX, with the same
+   +/-1e-4 kg numerical band.
+4. Monthly NH3 uses the exact Stage-2 target
+      NH3_REQ_FRAC*Q_NH3_MAX*NPER*dt
+   with +/-1e-4 kg (0.1 g) numerical accounting band.
+5. stage3_baselines_k09.dat is written with 15 decimals to avoid introducing
+   additional rounding in cumulative histories.
+6. Existing MW tolerances remain: BASE_REPLAY_TOL=1e-4 MW and
+   FLEX_ZERO_TOL=1e-3 MW.
+
+These bands are numerical I/O tolerances only and are many orders of
+magnitude below the physical quantities being evaluated.
