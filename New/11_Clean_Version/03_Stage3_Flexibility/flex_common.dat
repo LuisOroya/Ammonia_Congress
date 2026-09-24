@@ -20,9 +20,9 @@ param: L        U        A             B :=
 ;
 
 # Conservative upward-rounded K=9 Stage-1 reference design.
-param P_PV_MAX  := 159.96;
-param P_WD_MAX  := 499.30;
-param H2_ST_MAX := 27920;
+param P_PV_MAX  := 187.409;
+param P_WD_MAX  := 483.978;
+param H2_ST_MAX := 27031;
 
 # Renewable matching boundary: PEM stack + PEM BOP.
 param MATCH_FRACTION := 1.00;

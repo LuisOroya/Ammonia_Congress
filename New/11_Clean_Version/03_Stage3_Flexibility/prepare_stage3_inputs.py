@@ -22,7 +22,7 @@ BASE_CSV = S2 / "stage2_baselines.csv"
 REF_CSV = S2 / "stage2_reference_design.csv"
 OUT = HERE / "stage3_baselines_k09.dat"
 
-EXPECTED_REF = (159.96, 499.30, 27920.0)
+EXPECTED_REF = (187.409, 483.978, 27031.0)
 CASES = (1, 2)
 EXPECTED_NPER = {1:744, 2:744, 3:696, 4:720, 5:744, 6:744, 7:744, 8:720, 9:720}
 
@@ -131,6 +131,10 @@ with OUT.open("w", newline="\n") as f:
 print("Stage-3 baseline input created:")
 print(f"  {OUT}")
 print("Validated:")
-print("  reference design = 159.96 MW PV / 499.30 MW wind / 27,920 kg H2")
+print(
+    f"  reference design = {EXPECTED_REF[0]:.3f} MW PV / "
+    f"{EXPECTED_REF[1]:.3f} MW wind / "
+    f"{EXPECTED_REF[2]:.0f} kg H2"
+)
 print("  scenarios = 1..9")
 print("  cases = 1 MONTHLY, 2 HOURLY")

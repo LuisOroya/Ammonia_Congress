@@ -66,9 +66,14 @@ printf "param H2_ST_MAX := %.10f;\n", H2_ST_MAX >> "planned_capacities_exact.dat
 #   PV/wind upward to 0.01 MW; H2 storage upward to 10 kg.
 printf "# Conservative upward-rounded reference design from Stage 1\n" > "reference_design_rounded.dat";
 printf "data;\n" >> "reference_design_rounded.dat";
-printf "param P_PV_MAX := %.2f;\n", ceil(P_PV_MAX*100)/100 >> "reference_design_rounded.dat";
-printf "param P_WD_MAX := %.2f;\n", ceil(P_WD_MAX*100)/100 >> "reference_design_rounded.dat";
-printf "param H2_ST_MAX := %.0f;\n", ceil(H2_ST_MAX/10)*10 >> "reference_design_rounded.dat";
+printf "param P_PV_MAX := %.3f;\n",
+    ceil(P_PV_MAX*1000)/1000 >> "reference_design_rounded.dat";
+
+printf "param P_WD_MAX := %.3f;\n",
+    ceil(P_WD_MAX*1000)/1000 >> "reference_design_rounded.dat";
+
+printf "param H2_ST_MAX := %.0f;\n",
+    ceil(H2_ST_MAX) >> "reference_design_rounded.dat";
 
 # ------------------------------------------------------------
 # Overall summary
