@@ -25,21 +25,21 @@ param: L        U        A             B :=
 # stochastic HPS planning study. Replace if the final paper adopts
 # another economic source.
 # ------------------------------------------------------------
-param CAPEX_PV := 727000;     # USD/MW
-param CAPEX_WD := 1079000;    # USD/MW
-param FOM_PV   := 7010;       # USD/(MW-year)
-param FOM_WD   := 20000;      # USD/(MW-year)
+param CAPEX_PV := 672000;       # USD/MW
+param CAPEX_WD := 1282000;      # USD/MW
 
-# H2 tank cost assumptions carried over from the user's prior HPS planning model.
-# These are provisional and should be verified before publication.
-param CAPEX_H2_ST := 400;      # USD/kgH2
-param FOM_H2_ST   := 4;        # USD/(kgH2-year)
+param FOM_PV   := 7540;         # USD/(MW-year)
+param FOM_WD   := 20000;        # USD/(MW-year)
+
+param CAPEX_H2_ST := 500;       # USD/kgH2
+param FOM_H2_ST   := 5;         # USD/(kgH2-year), 1% CAPEX
 
 # Capital recovery factors. For this provisional test the same 9%, 25-y
 # factor is used for PV/WD and H2 storage; CRF_H2_ST is separate so that
 # a tank-specific lifetime can later be adopted without changing the model.
-param CRF       := 0.1018062505;
-param CRF_H2_ST := 0.1018062505;
+param CRF       := 0.1095464750;
+param CRF_H2_ST := 0.1095464750;
+
 param MONTHS_PER_YEAR := 12;
 
 # Keep the same provisional grid price used in the operational model.

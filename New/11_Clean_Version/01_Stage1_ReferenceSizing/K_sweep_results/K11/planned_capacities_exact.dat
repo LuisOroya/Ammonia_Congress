@@ -1,4 +1,4 @@
 # Numerical Stage-1 optimum (do not use as engineering precision)
-param P_PV_MAX := 159.2228750626;
-param P_WD_MAX := 499.6620020883;
-param H2_ST_MAX := 28162.6357704513;
+param P_PV_MAX := 189.0205674912;
+param P_WD_MAX := 483.2102919879;
+param H2_ST_MAX := 27001.8524190067;

@@ -1,4 +1,5 @@
-Gurobi 13.0.2:   mip:gap = 0.001
+Gurobi 13.0.3:   lim:time = 7200
+  mip:gap = 0.0001
   mip:focus = 2
   pre:solve = 2
   tech:threads = 16
@@ -15,30 +16,30 @@ Constraints:  134494 linear;
 
 
 Set parameter InfUnbdInfo to value 1
-Gurobi Optimizer version 13.0.2 build v13.0.2rc1 (win64 - Windows 11+.0 (26200.2))
+Gurobi Optimizer version 13.0.3 build v13.0.3rc0 (win64 - Windows 11+.0 (26200.2))
 
 CPU model: 13th Gen Intel(R) Core(TM) i7-13700, instruction set [SSE2|AVX|AVX2]
 Thread count: 16 physical cores, 24 logical processors, using up to 16 threads
 
 Non-default parameters:
-MIPGap  0.001
+TimeLimit  7200
 MIPFocus  2
 InfUnbdInfo  1
 Presolve  2
 Threads  16
 
 Optimize a model with 134494 rows, 132146 columns and 416405 nonzeros (Min)
-Model fingerprint: 0x0e171c07
+Model fingerprint: 0x1c887074
 Model has 8835 linear objective coefficients
 Variable types: 105680 continuous, 26466 integer (0 binary)
 Coefficient statistics:
   Matrix range     [2e-06, 2e+02]
-  Objective range  [1e-04, 1e+05]
+  Objective range  [1e-04, 2e+05]
   Bounds range     [1e+00, 1e+04]
   RHS range        [1e+00, 7e+06]
 
 Presolve removed 42101 rows and 50661 columns
-Presolve time: 0.83s
+Presolve time: 0.79s
 Presolved: 92393 rows, 81485 columns, 312711 nonzeros
 Variable types: 55019 continuous, 26466 integer (26466 binary)
 Root relaxation presolve removed 30 rows and 0 columns
@@ -51,113 +52,200 @@ Showing primal log only...
 Root simplex log...
 
 Iteration    Objective       Primal Inf.    Dual Inf.      Time
-  112200    9.3390054e+08   0.000000e+00   1.222499e+10      5s
-  118166    1.7203601e+08   0.000000e+00   0.000000e+00      7s
-Concurrent spin time: 1.67s (can be avoided by choosing Method=3)
+  112847    4.8702684e+08   0.000000e+00   8.463229e+08      5s
+  118880    2.0411864e+08   0.000000e+00   0.000000e+00      7s
+Concurrent spin time: 1.26s (can be avoided by choosing Method=3)
 
-Solved with primal simplex
-  118166    1.7203601e+08   0.000000e+00   0.000000e+00      9s
+Solved with dual simplex
 
-Root relaxation: objective 1.720360e+08, 118166 iterations, 7.01 seconds (17.04 work units)
+Root simplex log...
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+  150692    2.0411864e+08   0.000000e+00   0.000000e+00      8s
+
+Root relaxation: objective 2.041186e+08, 150692 iterations, 6.85 seconds (16.67 work units)
 
     Nodes    |    Current Node    |     Objective Bounds      |     Work
  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 
-     0     0 1.7204e+08    0  175          - 1.7204e+08      -     -   12s
-H    0     0                    2.877498e+08 1.7204e+08  40.2%     -   13s
-     0     0 1.7219e+08    0  234 2.8775e+08 1.7219e+08  40.2%     -   19s
-H    0     0                    2.599835e+08 1.7219e+08  33.8%     -   28s
-H    0     0                    2.052338e+08 1.7227e+08  16.1%     -   28s
-     0     0 1.7227e+08    0  235 2.0523e+08 1.7227e+08  16.1%     -   28s
-     0     0 1.7244e+08    0  255 2.0523e+08 1.7244e+08  16.0%     -   29s
-H    0     0                    1.861101e+08 1.7245e+08  7.34%     -   29s
-H    0     0                    1.784945e+08 1.7245e+08  3.39%     -   37s
-     0     0 1.7298e+08    0  231 1.7849e+08 1.7298e+08  3.09%     -   40s
-     0     0 1.7344e+08    0  179 1.7849e+08 1.7344e+08  2.83%     -   40s
-     0     0 1.7347e+08    0  187 1.7849e+08 1.7347e+08  2.82%     -   41s
-     0     0 1.7347e+08    0  187 1.7849e+08 1.7347e+08  2.82%     -   41s
-H    0     0                    1.784933e+08 1.7347e+08  2.82%     -   50s
-     0     0 1.7350e+08    0  187 1.7849e+08 1.7350e+08  2.80%     -   50s
-     0     0 1.7369e+08    0  196 1.7849e+08 1.7369e+08  2.69%     -   51s
-     0     0 1.7369e+08    0  198 1.7849e+08 1.7369e+08  2.69%     -   51s
-     0     0 1.7369e+08    0  198 1.7849e+08 1.7369e+08  2.69%     -   51s
-     0     0 1.7397e+08    0  311 1.7849e+08 1.7397e+08  2.54%     -   62s
-     0     0 1.7397e+08    0  301 1.7849e+08 1.7397e+08  2.54%     -   62s
-     0     0 1.7408e+08    0  299 1.7849e+08 1.7408e+08  2.47%     -   63s
-     0     0 1.7408e+08    0  291 1.7849e+08 1.7408e+08  2.47%     -   63s
-     0     0 1.7408e+08    0  264 1.7849e+08 1.7408e+08  2.47%     -   64s
-H    0     0                    1.774285e+08 1.7408e+08  1.89%     -   71s
-H    0     0                    1.774278e+08 1.7408e+08  1.89%     -   71s
-     0     0 1.7455e+08    0  266 1.7743e+08 1.7455e+08  1.62%     -   78s
-     0     0 1.7456e+08    0  208 1.7743e+08 1.7456e+08  1.62%     -   78s
-     0     0 1.7458e+08    0  211 1.7743e+08 1.7458e+08  1.61%     -   78s
-     0     0 1.7479e+08    0  261 1.7743e+08 1.7479e+08  1.49%     -   93s
-     0     0 1.7499e+08    0  262 1.7743e+08 1.7499e+08  1.37%     -   93s
-     0     0 1.7500e+08    0  208 1.7743e+08 1.7500e+08  1.37%     -   93s
-     0     0 1.7518e+08    0  200 1.7743e+08 1.7518e+08  1.27%     -   94s
-     0     0 1.7518e+08    0  207 1.7743e+08 1.7518e+08  1.27%     -   94s
-H    0     0                    1.772853e+08 1.7518e+08  1.19%     -  101s
-     0     0 1.7540e+08    0  189 1.7729e+08 1.7540e+08  1.07%     -  103s
-     0     0 1.7541e+08    0  197 1.7729e+08 1.7541e+08  1.06%     -  104s
-     0     0 1.7542e+08    0  165 1.7729e+08 1.7542e+08  1.05%     -  113s
-     0     0 1.7542e+08    0  169 1.7729e+08 1.7542e+08  1.05%     -  113s
-H    0     0                    1.766485e+08 1.7542e+08  0.70%     -  121s
-     0     0 1.7542e+08    0  172 1.7665e+08 1.7542e+08  0.69%     -  124s
-     0     0 1.7542e+08    0  172 1.7665e+08 1.7542e+08  0.69%     -  125s
-     0     0 1.7570e+08    0  171 1.7665e+08 1.7570e+08  0.54%     -  137s
-     0     0 1.7576e+08    0  186 1.7665e+08 1.7576e+08  0.50%     -  138s
-     0     0 1.7579e+08    0  183 1.7665e+08 1.7579e+08  0.49%     -  139s
-     0     0 1.7579e+08    0  185 1.7665e+08 1.7579e+08  0.49%     -  139s
-     0     0 1.7579e+08    0  186 1.7665e+08 1.7579e+08  0.49%     -  139s
-     0     0 1.7581e+08    0  169 1.7665e+08 1.7581e+08  0.47%     -  149s
-     0     0 1.7583e+08    0  191 1.7665e+08 1.7583e+08  0.46%     -  149s
-     0     0 1.7583e+08    0  191 1.7665e+08 1.7583e+08  0.46%     -  150s
-     0     0 1.7593e+08    0  232 1.7665e+08 1.7593e+08  0.41%     -  159s
-     0     0 1.7593e+08    0  248 1.7665e+08 1.7593e+08  0.41%     -  159s
-     0     0 1.7595e+08    0  231 1.7665e+08 1.7595e+08  0.40%     -  160s
-     0     0 1.7595e+08    0  247 1.7665e+08 1.7595e+08  0.40%     -  160s
-     0     0 1.7600e+08    0  243 1.7665e+08 1.7600e+08  0.37%     -  171s
-     0     0 1.7600e+08    0  248 1.7665e+08 1.7600e+08  0.37%     -  171s
-     0     0 1.7600e+08    0  248 1.7665e+08 1.7600e+08  0.37%     -  172s
-     0     0 1.7601e+08    0  230 1.7665e+08 1.7601e+08  0.36%     -  185s
-     0     0 1.7601e+08    0  235 1.7665e+08 1.7601e+08  0.36%     -  185s
-     0     0 1.7601e+08    0  239 1.7665e+08 1.7601e+08  0.36%     -  186s
-     0     0 1.7603e+08    0  235 1.7665e+08 1.7603e+08  0.35%     -  197s
-     0     0 1.7603e+08    0  242 1.7665e+08 1.7603e+08  0.35%     -  197s
-     0     0 1.7605e+08    0  244 1.7665e+08 1.7605e+08  0.34%     -  209s
-     0     0 1.7605e+08    0  246 1.7665e+08 1.7605e+08  0.34%     -  209s
-     0     0 1.7605e+08    0  246 1.7665e+08 1.7605e+08  0.34%     -  209s
-     0     0 1.7605e+08    0  228 1.7665e+08 1.7605e+08  0.34%     -  222s
-     0     0 1.7605e+08    0  231 1.7665e+08 1.7605e+08  0.34%     -  225s
-     0     0 1.7605e+08    0  228 1.7665e+08 1.7605e+08  0.34%     -  237s
-     0     0 1.7605e+08    0  220 1.7665e+08 1.7605e+08  0.34%     -  237s
-     0     0 1.7605e+08    0  220 1.7665e+08 1.7605e+08  0.34%     -  237s
-     0     0 1.7605e+08    0  207 1.7665e+08 1.7605e+08  0.34%     -  238s
-     0     2 1.7605e+08    0  207 1.7665e+08 1.7605e+08  0.34%     -  240s
-    39     4 1.7654e+08    9  148 1.7665e+08 1.7624e+08  0.23%  30.8  245s
+     0     0 2.0412e+08    0  176          - 2.0412e+08      -     -    9s
+H    0     0                    3.475798e+08 2.0412e+08  41.3%     -   15s
+     0     0 2.0420e+08    0  205 3.4758e+08 2.0420e+08  41.3%     -   16s
+     0     0 2.0420e+08    0  203 3.4758e+08 2.0420e+08  41.3%     -   16s
+     0     0 2.0421e+08    0  210 3.4758e+08 2.0421e+08  41.2%     -   20s
+     0     0 2.0421e+08    0  209 3.4758e+08 2.0421e+08  41.2%     -   21s
+H    0     0                    3.095882e+08 2.0421e+08  34.0%     -   26s
+     0     0 2.0421e+08    0  207 3.0959e+08 2.0421e+08  34.0%     -   27s
+H    0     0                    2.237382e+08 2.0421e+08  8.73%     -   35s
+H    0     0                    2.229319e+08 2.0421e+08  8.40%     -   35s
+H    0     0                    2.212938e+08 2.0421e+08  7.72%     -   35s
+H    0     0                    2.212705e+08 2.0421e+08  7.71%     -   35s
+H    0     0                    2.152161e+08 2.0421e+08  5.11%     -   35s
+H    0     0                    2.152155e+08 2.0421e+08  5.11%     -   35s
+H    0     0                    2.143188e+08 2.0421e+08  4.72%     -   35s
+H    0     0                    2.133798e+08 2.0421e+08  4.30%     -   35s
+H    0     0                    2.133754e+08 2.0421e+08  4.29%     -   35s
+H    0     0                    2.116492e+08 2.0421e+08  3.51%     -   35s
+     0     0 2.0430e+08    0  275 2.1165e+08 2.0430e+08  3.47%     -   35s
+     0     0 2.0504e+08    0  215 2.1165e+08 2.0504e+08  3.12%     -   36s
+Warning for adding constraints: zero or small (< 1e-13) coefficients, ignored
+H    0     0                    2.116361e+08 2.0515e+08  3.07%     -   44s
+H    0     0                    2.116348e+08 2.0515e+08  3.07%     -   44s
+     0     0 2.0574e+08    0  311 2.1163e+08 2.0574e+08  2.79%     -   48s
+     0     0 2.0598e+08    0  308 2.1163e+08 2.0598e+08  2.67%     -   48s
+     0     0 2.0600e+08    0  219 2.1163e+08 2.0600e+08  2.66%     -   49s
+     0     0 2.0600e+08    0  220 2.1163e+08 2.0600e+08  2.66%     -   49s
+Warning for adding constraints: zero or small (< 1e-13) coefficients, ignored
+H    0     0                    2.110804e+08 2.0600e+08  2.41%     -   58s
+     0     0 2.0681e+08    0  233 2.1108e+08 2.0681e+08  2.02%     -   59s
+     0     0 2.0689e+08    0  223 2.1108e+08 2.0689e+08  1.98%     -   59s
+     0     0 2.0699e+08    0  214 2.1108e+08 2.0699e+08  1.94%     -   59s
+     0     0 2.0707e+08    0  214 2.1108e+08 2.0707e+08  1.90%     -   59s
+     0     0 2.0707e+08    0  214 2.1108e+08 2.0707e+08  1.90%     -   59s
+Warning for adding constraints: zero or small (< 1e-13) coefficients, ignored
+H    0     0                    2.105086e+08 2.0707e+08  1.63%     -   69s
+     0     0 2.0770e+08    0  217 2.1051e+08 2.0770e+08  1.33%     -   69s
+     0     0 2.0771e+08    0  225 2.1051e+08 2.0771e+08  1.33%     -   69s
+     0     0 2.0771e+08    0  228 2.1051e+08 2.0771e+08  1.33%     -   70s
+Warning for adding constraints: zero or small (< 1e-13) coefficients, ignored
+H    0     0                    2.104938e+08 2.0771e+08  1.32%     -   79s
+     0     0 2.0773e+08    0  225 2.1049e+08 2.0773e+08  1.32%     -   80s
+     0     0 2.0773e+08    0  226 2.1049e+08 2.0773e+08  1.31%     -   80s
+     0     0 2.0773e+08    0  226 2.1049e+08 2.0773e+08  1.31%     -   80s
+Warning for adding constraints: zero or small (< 1e-13) coefficients, ignored
+H    0     0                    2.104846e+08 2.0773e+08  1.31%     -   91s
+     0     0 2.0779e+08    0  222 2.1048e+08 2.0779e+08  1.28%     -   91s
+     0     0 2.0779e+08    0  220 2.1048e+08 2.0779e+08  1.28%     -   91s
+     0     0 2.0780e+08    0  226 2.1048e+08 2.0780e+08  1.28%     -   92s
+     0     0 2.0780e+08    0  226 2.1048e+08 2.0780e+08  1.28%     -   92s
+Warning for adding constraints: zero or small (< 1e-13) coefficients, ignored
+H    0     0                    2.097871e+08 2.0780e+08  0.95%     -  102s
+     0     0 2.0832e+08    0  235 2.0979e+08 2.0832e+08  0.70%     -  102s
+     0     0 2.0832e+08    0  232 2.0979e+08 2.0832e+08  0.70%     -  102s
+     0     0 2.0832e+08    0  231 2.0979e+08 2.0832e+08  0.70%     -  102s
+Warning for adding constraints: zero or small (< 1e-13) coefficients, ignored
+     0     0 2.0849e+08    0  202 2.0979e+08 2.0849e+08  0.62%     -  113s
+     0     0 2.0863e+08    0  222 2.0979e+08 2.0863e+08  0.55%     -  113s
+Warning for adding constraints: zero or small (< 1e-13) coefficients, ignored
+H    0     0                    2.097851e+08 2.0863e+08  0.55%     -  124s
+     0     0 2.0871e+08    0  213 2.0979e+08 2.0871e+08  0.51%     -  124s
+     0     0 2.0879e+08    0  220 2.0979e+08 2.0879e+08  0.47%     -  124s
+     0     0 2.0879e+08    0  218 2.0979e+08 2.0879e+08  0.47%     -  124s
+     0     0 2.0881e+08    0  226 2.0979e+08 2.0881e+08  0.46%     -  125s
+     0     0 2.0881e+08    0  226 2.0979e+08 2.0881e+08  0.46%     -  125s
+     0     0 2.0881e+08    0  226 2.0979e+08 2.0881e+08  0.46%     -  125s
+Warning for adding constraints: zero or small (< 1e-13) coefficients, ignored
+     0     0 2.0887e+08    0  173 2.0979e+08 2.0887e+08  0.43%     -  135s
+     0     0 2.0911e+08    0  193 2.0979e+08 2.0911e+08  0.32%     -  136s
+     0     0 2.0911e+08    0  171 2.0979e+08 2.0911e+08  0.32%     -  136s
+Warning for adding constraints: zero or small (< 1e-13) coefficients, ignored
+     0     0 2.0911e+08    0  229 2.0979e+08 2.0911e+08  0.32%     -  147s
+     0     0 2.0911e+08    0  227 2.0979e+08 2.0911e+08  0.32%     -  147s
+     0     0 2.0911e+08    0  225 2.0979e+08 2.0911e+08  0.32%     -  147s
+     0     0 2.0911e+08    0  218 2.0979e+08 2.0911e+08  0.32%     -  148s
+     0     0 2.0911e+08    0  225 2.0979e+08 2.0911e+08  0.32%     -  148s
+     0     0 2.0911e+08    0  228 2.0979e+08 2.0911e+08  0.32%     -  148s
+Warning for adding constraints: zero or small (< 1e-13) coefficients, ignored
+     0     0 2.0913e+08    0  242 2.0979e+08 2.0913e+08  0.31%     -  163s
+     0     0 2.0913e+08    0  229 2.0979e+08 2.0913e+08  0.31%     -  163s
+     0     0 2.0913e+08    0  229 2.0979e+08 2.0913e+08  0.31%     -  163s
+     0     0 2.0914e+08    0  235 2.0979e+08 2.0914e+08  0.31%     -  163s
+     0     0 2.0914e+08    0  233 2.0979e+08 2.0914e+08  0.31%     -  164s
+Warning for adding constraints: zero or small (< 1e-13) coefficients, ignored
+     0     0 2.0914e+08    0  236 2.0979e+08 2.0914e+08  0.31%     -  176s
+     0     0 2.0914e+08    0  236 2.0979e+08 2.0914e+08  0.31%     -  176s
+     0     0 2.0914e+08    0  238 2.0979e+08 2.0914e+08  0.31%     -  177s
+Warning for adding constraints: zero or small (< 1e-13) coefficients, ignored
+     0     0 2.0919e+08    0  192 2.0979e+08 2.0919e+08  0.28%     -  191s
+     0     0 2.0922e+08    0  223 2.0979e+08 2.0922e+08  0.27%     -  191s
+     0     0 2.0922e+08    0  242 2.0979e+08 2.0922e+08  0.27%     -  192s
+Warning for adding constraints: zero or small (< 1e-13) coefficients, ignored
+     0     0 2.0923e+08    0  209 2.0979e+08 2.0923e+08  0.26%     -  203s
+     0     0 2.0923e+08    0  208 2.0979e+08 2.0923e+08  0.26%     -  203s
+H    0     0                    2.097831e+08 2.0923e+08  0.26%     -  206s
+     0     0 2.0924e+08    0  210 2.0978e+08 2.0924e+08  0.26%     -  206s
+Warning for adding constraints: zero or small (< 1e-13) coefficients, ignored
+     0     0 2.0925e+08    0  208 2.0978e+08 2.0925e+08  0.25%     -  218s
+     0     0 2.0925e+08    0  207 2.0978e+08 2.0925e+08  0.25%     -  218s
+     0     0 2.0925e+08    0  207 2.0978e+08 2.0925e+08  0.25%     -  218s
+Warning for adding constraints: zero or small (< 1e-13) coefficients, ignored
+     0     0 2.0927e+08    0  194 2.0978e+08 2.0927e+08  0.24%     -  230s
+     0     0 2.0927e+08    0  194 2.0978e+08 2.0927e+08  0.24%     -  235s
+Warning for adding constraints: zero or small (< 1e-13) coefficients, ignored
+     0     0 2.0930e+08    0  193 2.0978e+08 2.0930e+08  0.23%     -  249s
+Warning for adding constraints: zero or small (< 1e-13) coefficients, ignored
+     0     0 2.0930e+08    0  200 2.0978e+08 2.0930e+08  0.23%     -  261s
+     0     0 2.0931e+08    0  217 2.0978e+08 2.0931e+08  0.23%     -  262s
+     0     0 2.0931e+08    0  221 2.0978e+08 2.0931e+08  0.23%     -  262s
+Warning for adding constraints: zero or small (< 1e-13) coefficients, ignored
+     0     0 2.0935e+08    0  186 2.0978e+08 2.0935e+08  0.21%     -  275s
+     0     0 2.0937e+08    0  195 2.0978e+08 2.0937e+08  0.20%     -  276s
+     0     0 2.0937e+08    0  193 2.0978e+08 2.0937e+08  0.20%     -  276s
+Warning for adding constraints: zero or small (< 1e-13) coefficients, ignored
+     0     0 2.0938e+08    0  193 2.0978e+08 2.0938e+08  0.19%     -  290s
+     0     0 2.0939e+08    0  184 2.0978e+08 2.0939e+08  0.19%     -  290s
+     0     0 2.0939e+08    0  184 2.0978e+08 2.0939e+08  0.19%     -  290s
+     0     0 2.0940e+08    0  183 2.0978e+08 2.0940e+08  0.18%     -  290s
+Warning for adding constraints: zero or small (< 1e-13) coefficients, ignored
+     0     0 2.0940e+08    0  176 2.0978e+08 2.0940e+08  0.18%     -  305s
+     0     0 2.0942e+08    0  208 2.0978e+08 2.0942e+08  0.18%     -  306s
+     0     0 2.0942e+08    0  211 2.0978e+08 2.0942e+08  0.17%     -  306s
+Warning for adding constraints: zero or small (< 1e-13) coefficients, ignored
+     0     0 2.0943e+08    0  201 2.0978e+08 2.0943e+08  0.17%     -  320s
+     0     0 2.0943e+08    0  206 2.0978e+08 2.0943e+08  0.17%     -  325s
+Warning for adding constraints: zero or small (< 1e-13) coefficients, ignored
+     0     0 2.0943e+08    0  170 2.0978e+08 2.0943e+08  0.17%     -  342s
+     0     0 2.0943e+08    0  186 2.0978e+08 2.0943e+08  0.17%     -  343s
+     0     0 2.0943e+08    0  185 2.0978e+08 2.0943e+08  0.17%     -  343s
+Warning for adding constraints: zero or small (< 1e-13) coefficients, ignored
+     0     0 2.0945e+08    0  199 2.0978e+08 2.0945e+08  0.16%     -  360s
+     0     0 2.0945e+08    0  199 2.0978e+08 2.0945e+08  0.16%     -  362s
+     0     0 2.0945e+08    0  198 2.0978e+08 2.0945e+08  0.16%     -  362s
+Warning for adding constraints: zero or small (< 1e-13) coefficients, ignored
+     0     0 2.0946e+08    0  152 2.0978e+08 2.0946e+08  0.15%     -  379s
+     0     0 2.0946e+08    0  151 2.0978e+08 2.0946e+08  0.15%     -  379s
+     0     0 2.0948e+08    0  160 2.0978e+08 2.0948e+08  0.14%     -  380s
+     0     0 2.0949e+08    0  151 2.0978e+08 2.0949e+08  0.14%     -  380s
+     0     0 2.0949e+08    0  155 2.0978e+08 2.0949e+08  0.14%     -  380s
+Warning for adding constraints: zero or small (< 1e-13) coefficients, ignored
+     0     0 2.0956e+08    0  118 2.0978e+08 2.0956e+08  0.10%     -  397s
+     0     0 2.0956e+08    0  117 2.0978e+08 2.0956e+08  0.10%     -  397s
+     0     0 2.0956e+08    0  100 2.0978e+08 2.0956e+08  0.10%     -  398s
+Warning for adding constraints: zero or small (< 1e-13) coefficients, ignored
+     0     0 2.0956e+08    0   91 2.0978e+08 2.0956e+08  0.10%     -  416s
+Warning for adding constraints: zero or small (< 1e-13) coefficients, ignored
+     0     0 2.0957e+08    0   97 2.0978e+08 2.0957e+08  0.10%     -  434s
+     0     0 2.0957e+08    0   97 2.0978e+08 2.0957e+08  0.10%     -  441s
+Warning for adding constraints: zero or small (< 1e-13) coefficients, ignored
+     0     0 2.0957e+08    0   97 2.0978e+08 2.0957e+08  0.10%     -  463s
+     0     0 2.0957e+08    0   97 2.0978e+08 2.0957e+08  0.10%     -  463s
+     0     0 2.0957e+08    0   97 2.0978e+08 2.0957e+08  0.10%     -  463s
+     0     0 2.0957e+08    0   65 2.0978e+08 2.0957e+08  0.10%     -  464s
+     0     2 2.0957e+08    0   65 2.0978e+08 2.0957e+08  0.10%     -  466s
 
 Cutting planes:
-  Gomory: 34
-  Lift-and-project: 78
-  Implied bound: 106
-  Projected implied bound: 2
-  MIR: 1290
-  Flow cover: 253
-  Relax-and-lift: 1394
+  Gomory: 20
+  Lift-and-project: 2
+  Implied bound: 195
+  Projected implied bound: 38
+  MIR: 186
+  Flow cover: 107
+  RLT: 1
+  Relax-and-lift: 940
 
-Explored 62 nodes (173913 simplex iterations) in 245.84 seconds (355.10 work units)
+Explored 5 nodes (181296 simplex iterations) in 466.39 seconds (560.04 work units)
 Thread count was 16 (of 24 available processors)
 
-Solution count 10: 1.76648e+08 1.76648e+08 1.77285e+08 ... 2.59983e+08
+Solution count 10: 2.09783e+08 2.09783e+08 2.09785e+08 ... 2.11636e+08
 
-Optimal solution found (tolerance 1.00e-03)
-Warning: max constraint violation (1.6375e-06) exceeds tolerance
-Warning: max bound violation (4.6459e-06) exceeds tolerance
-Best objective 1.766484511088e+08, best bound 1.765651578222e+08, gap 0.0472%
-Gurobi 13.0.2: optimal solution; objective 176648451.1
-173913 simplex iterations
-62 branching nodes
-absmipgap=83293.3, relmipgap=0.00047152
+Optimal solution found (tolerance 1.00e-04)
+Warning: max constraint violation (1.6400e-06) exceeds tolerance
+Warning: max bound violation (9.2857e-06) exceeds tolerance
+Best objective 2.097831086215e+08, best bound 2.097831069417e+08, gap 0.0000%
+Gurobi 13.0.3: optimal solution; objective 209783108.6
+181296 simplex iterations
+5 branching nodes
+absmipgap=1.6798, relmipgap=8.00731e-09
 ------------ WARNINGS ------------
 WARNING:  "Tolerance violations"
   Type                         MaxAbs [Name]   MaxRel [Name]
@@ -168,16 +256,16 @@ Documentation: mp.ampl.com/modeling-tools.html#automatic-solution-check.
 ============================================================
  STOCHASTIC / MULTI-SCENARIO RES + H2 STORAGE PLANNING SOLVED
 ============================================================
-PV capacity             = 451.123859 MW
-Wind capacity           = 1061.092590 MW
-H2 storage capacity     = 51067.461360 kgH2
-H2 storage duration     = 29.251703 h at rated H2 production
-Annualized total cost   = 176648451.108775 USD/year
-Annualized investment   = 152028590.737001 USD/year
-Fixed PV/WD O&M         = 24384230.055241 USD/year
-Fixed H2 tank O&M       = 204269.845440 USD/year
-Expected annual grid op = 31360.471094 USD/year
-Expected annual import  = 522.674518 MWh/year
+PV capacity             = 467.493195 MW
+Wind capacity           = 1052.021968 MW
+H2 storage capacity     = 50658.367116 kgH2
+H2 storage duration     = 29.017371 h at rated H2 production
+Annualized total cost   = 209783108.621546 USD/year
+Annualized investment   = 184933814.742694 USD/year
+Fixed PV/WD O&M         = 24565338.052212 USD/year
+Fixed H2 tank O&M       = 253291.835580 USD/year
+Expected annual grid op = 30663.991060 USD/year
+Expected annual import  = 511.066518 MWh/year
 ============================================================
 
 Outputs:
