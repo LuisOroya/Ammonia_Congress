@@ -1,8 +1,0 @@
-Stage 3 syntax patch
-====================
-
-Corrected AMPL model-declaration syntax in the run files:
-- main_stage3_pilot.run: PILOT_STARTS is now defined with `=` and a set expression.
-- main_stage3_k09.run: DAY_STEP uses `default 7`; START_CLOCK is defined with `=` and a set expression.
-
-No optimization formulation or numerical data were changed.

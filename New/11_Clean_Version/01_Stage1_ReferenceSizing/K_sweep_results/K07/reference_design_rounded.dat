@@ -1,5 +1,0 @@
-# Conservative upward-rounded reference design from Stage 1
-data;
-param P_PV_MAX := 195.17;
-param P_WD_MAX := 749.30;
-param H2_ST_MAX := 29870;

@@ -1,0 +1,51 @@
+# ============================================================
+# stage2_common.dat
+# Stage 2 fixed process/economic data. The reference design is loaded separately
+# from the Stage-1 selected-K result.
+# ============================================================
+data;
+
+param dt := 1;
+# PEM PWL set/coefficients are loaded separately from pem_pwl.dat.
+
+# Renewable matching
+param MATCH_FRACTION := 1.00;
+param MATCH_FULL_P2A := 0;
+
+# Fixed PEM
+param P_EL_MAX := 94.7000;
+param H2_PROD_RATED := 1745.7945;
+param SEC_BOP := 0.004000;
+
+# H2 subsystem
+param SEC_H2_COMP := 0.001520;
+param H2_COMP_MAX := 1745.7945;
+param H2_ST_MIN_FRAC  := 0.05;
+param H2_ST_MAX_FRAC  := 1.00;
+param H2_ST_INIT_FRAC := 0.50;
+
+# N2 / NH3 subsystem
+param LAMBDA_H2_NH3 := 0.1765;
+param LAMBDA_N2_NH3 := 0.8235;
+param N2_ASU_MAX := 8145.39247;
+param N2_COMP_MAX := 8145.39247;
+param SEC_ASU := 0.000095;
+param SEC_N2_COMP := 0.000270;
+param Q_NH3_MAX := 9891.18697;
+param HB_MIN_LOAD := 0.80;
+param SEC_HB := 0.000002;
+param NH3_REQ_FRAC := 0.90;
+
+# Grid economics
+param C_GRID := 60.0;
+
+# Retained at the same value used in the planning model for consistency.
+# This is only a tiny export-disposal penalty, not export revenue.
+param EPS_EXPORT := 0.0001;
+
+# Hierarchical baseline tie-breaker.
+# Stage A minimizes operating cost. Stage B permits at most 0.01 USD above
+# the Stage-A optimum and minimizes normalized process variability. The 0.01-USD
+# allowance is economically negligible but deliberately above solver-level
+# numerical noise observed with the earlier 0.001-USD lock.
+param COST_LOCK_EPS := 0.01;   # USD per independently solved scenario

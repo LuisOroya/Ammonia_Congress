@@ -1,0 +1,7 @@
+*.py text eol=lf
+*.md text eol=lf
+*.mod text eol=lf
+*.run text eol=lf
+*.dat text eol=lf
+*.csv text eol=lf
+*.json text eol=lf

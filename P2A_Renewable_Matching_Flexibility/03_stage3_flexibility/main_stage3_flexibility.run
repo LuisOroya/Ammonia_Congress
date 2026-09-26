@@ -1,0 +1,111 @@
+# ============================================================
+# main_stage3_flexibility.run
+# FINAL K=9 paired PHYS-vs-RM flexibility sweep.
+#
+# Baselines: c=1 MONTHLY and c=2 HOURLY from final Stage 2.
+# Directions: INC and DEC.
+# Durations: 1, 4, 12, 24 h.
+# Structured activation sampling:
+#   within-day indices {1,7,13,19} every 7 days.
+# These indices sample the day at 6-h spacing; their wall-clock labels depend
+# on the timestamp convention of the source data. The scheme also samples
+# intra-month renewable variation
+# without solving every possible activation hour.
+# ============================================================
+reset;
+model p2a_stage3_paired_flex_sbpwl.mod;
+data flex_common.dat;
+data pem_pwl.dat;
+data reference_design.dat;
+data planning_scenarios.dat;
+data planning_profiles.dat;
+data stage3_baselines_k09.dat;
+
+option solver gurobi;
+option presolve_eps 1e-7;
+option gurobi_options 'mipgap=0 mipfocus=2 presolve=2 threads=16 outlev=0';
+
+# Sampling controls. Change DAY_STEP only if a denser/sparser sensitivity
+# is desired; DAY_STEP=7 is the final default.
+param DAY_STEP integer > 0 default 7;
+set START_CLOCK = {1, 7, 13, 19};
+
+param F_PHYS_TMP >= 0 default 0;
+param F_RM_TMP >= 0 default 0;
+param R_TMP default -1;
+param EVENT_COUNT integer >= 0 default 0;
+
+printf "scenario,probability,case,case_name,duration_h,start,direction,F_PHYS_MW,F_RM_MW,retained_ratio,loss_MW,baseline_window_avg_MW,base_p2a_tau_MW,base_h2_prev_kg,base_used_matching_margin_tau_MW,base_available_matching_headroom_tau_MW\n"
+  > "stage3_flexibility_results.csv";
+
+for {s in S, c in CASES, d in DURS, tau in T:
+      tau+d-1 <= NPER[s]
+      and (1 + ((tau-1) mod 24)) in START_CLOCK
+      and (floor((tau-1)/24) mod DAY_STEP) = 0} {
+
+  let SCEN_ACTIVE := s;
+  let BASE_CASE := c;
+  let TAU_ACTIVE := tau;
+  let DUR_ACTIVE := d;
+
+  for {q in 1..2} {
+    if q=1 then { let FLEX_INC := 1; let FLEX_DEC := 0; }
+    if q=2 then { let FLEX_INC := 0; let FLEX_DEC := 1; }
+
+    # PHYS branch: matching relaxed from tau onward.
+    let MATCH_MONTHLY := 0;
+    let MATCH_HOURLY := 0;
+    solve;
+    if solve_result != "solved" then {
+      printf "FAILED PHYS: s=%d c=%d d=%d tau=%d q=%d result=%s\n",
+        s,c,d,tau,q,solve_result;
+      exit;
+    }
+    let F_PHYS_TMP := if DeltaP <= BASE_REPLAY_TOL + FLEX_ZERO_TOL then 0 else DeltaP - BASE_REPLAY_TOL;
+
+    # RM branch: baseline matching regime retained.
+    let MATCH_MONTHLY := if c=1 then 1 else 0;
+    let MATCH_HOURLY  := if c=2 then 1 else 0;
+    solve;
+    if solve_result != "solved" then {
+      printf "FAILED RM: s=%d c=%d d=%d tau=%d q=%d result=%s\n",
+        s,c,d,tau,q,solve_result;
+      exit;
+    }
+    let F_RM_TMP := if DeltaP <= BASE_REPLAY_TOL + FLEX_ZERO_TOL then 0 else DeltaP - BASE_REPLAY_TOL;
+    let R_TMP := if F_PHYS_TMP > FLEX_ZERO_TOL
+                 then F_RM_TMP/F_PHYS_TMP else -1;
+
+    if F_RM_TMP > F_PHYS_TMP + 1e-3 then {
+      printf "WARNING RM>PHYS: s=%d c=%d d=%d tau=%d q=%d PHYS=%.6f RM=%.6f\n",
+        s,c,d,tau,q,F_PHYS_TMP,F_RM_TMP;
+    }
+
+    let EVENT_COUNT := EVENT_COUNT + 1;
+
+    printf "%d,%.12f,%d,%s,%d,%d,%s,%.10f,%.10f,%.10f,%.10f,%.10f,%.10f,%.10f,%.10f,%.10f\n",
+      s,PROB[s],c,
+      if c=1 then "MONTHLY" else "HOURLY",
+      d,tau,if q=1 then "INC" else "DEC",
+      F_PHYS_TMP,F_RM_TMP,R_TMP,F_PHYS_TMP-F_RM_TMP,
+      (sum {t in T: t>=tau and t<=tau+d-1} BASE_P2A[s,c,t])/d,
+      BASE_P2A[s,c,tau],
+      BASE_H2ST[s,c,tau-1],
+      BASE_PV[s,c,tau]+BASE_WD[s,c,tau]-BASE_MATCH_LOAD[s,c,tau],
+      P_PV_MAX*zeta_PV[s,tau]+P_WD_MAX*zeta_WD[s,tau]-BASE_MATCH_LOAD[s,c,tau]
+      >> "stage3_flexibility_results.csv";
+
+    printf "event=%d | s=%d c=%d d=%dh tau=%d %s | PHYS=%.4f RM=%.4f R=%.4f\n",
+      EVENT_COUNT,s,c,d,tau,if q=1 then "INC" else "DEC",
+      F_PHYS_TMP,F_RM_TMP,R_TMP;
+  }
+}
+
+printf "\n============================================================\n";
+printf " STAGE 3 K=9 PAIRED FLEXIBILITY COMPLETE\n";
+printf "============================================================\n";
+printf "Events written = %d paired event rows\n", EVENT_COUNT;
+printf "Each row contains both PHYS and RM optimal flexibility.\n";
+printf "Output: stage3_flexibility_results.csv\n";
+printf "Next: py analyze_stage3_results.py stage3_flexibility_results.csv\n";
+printf "============================================================\n";

@@ -1,0 +1,24 @@
+{
+  "created_utc": "2026-09-25T17:22:10.701549+00:00",
+  "input_hashes": {
+    "00_pem_curve\\generated\\pem_pwl_6segments.dat": "ef58cc07e145170c38e99d564f5e54ee43eb57d24798e91f84be367fb72f77c8",
+    "01_stage1_reference_sizing\\scenario_sets\\K09\\planning_profiles.dat": "e7abcfbeb0e157ccdaaa7630980b52dd01875974d015ea4a465c45f3dcbb04aa",
+    "01_stage1_reference_sizing\\scenario_sets\\K09\\planning_scenarios.dat": "aa28af13023783e43a73b9b5a1baa0bcbf6a35279a6166816878e78d633d8ca1",
+    "01_stage1_reference_sizing\\scenario_sets\\K09\\scenario_map.csv": "d60ac9d9a31a6c5718c5da9a3d4ad25918d3cd6d2f07df56eb51315a468454db",
+    "02_stage2_baselines\\main_stage2_baselines.run": "2a8461e580bf029e70aa3f6800a289f3f6ab4b7a649b8003fdb340f3caac0b82",
+    "02_stage2_baselines\\p2a_stage2_fixed_baselines_sbpwl.mod": "36fbefa9e06d21f59617da0701071635621e4ecf3d7536c0b5f1904bdbb29d8f",
+    "02_stage2_baselines\\stage2_common.dat": "c8d2b69bca9fc061b053042b90e61bfa1a92e04da6a6beb4aa314382a95f3e85",
+    "results\\stage1\\K09\\reference_design_rounded.dat": "920e2eb7066fe6f3a650ae51c50ab1430c992f3bac3d05abf1eaac2e089ef753"
+  },
+  "output_hashes": {
+    "results\\stage2\\stage2_baselines.csv": "57363d8afc663feb0d44784807321ef251657acd75772eb4531d26546c44f178",
+    "results\\stage2\\stage2_case_scenario_summary.csv": "0a43213395d778a430d1b06eea63421bdc2819ff0f3920b42cba608f19c7907b",
+    "results\\stage2\\stage2_case_summary.csv": "233e93ad23c7c681bf6532594a38ca3d95b182c45538b4100129cd2d131a9e28",
+    "results\\stage2\\stage2_reference_design.csv": "02f9f8e360876413d6da68adbd8719409758de77c45eac4104341d7d84969a13",
+    "results\\stage2\\stage2_scenario_solve_summary.csv": "1758ab014537c5590487a67ceb4f98c8afb9c85bc1813132900cb0c3d4853fc0",
+    "results\\stage2\\stage2_segments.csv": "5c285e5566f72124d3da7ff7e72b1cd0dc282fd7d01d7fff4ddba74a84f31405"
+  },
+  "selected_K": 9,
+  "stage": "stage2",
+  "validated_existing_outputs": true
+}

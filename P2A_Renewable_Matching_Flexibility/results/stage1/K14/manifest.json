@@ -1,0 +1,27 @@
+{
+  "K": 14,
+  "created_utc": "2026-09-25T01:21:13.830807+00:00",
+  "input_hashes": {
+    "00_pem_curve\\generated\\pem_pwl_6segments.dat": "ef58cc07e145170c38e99d564f5e54ee43eb57d24798e91f84be367fb72f77c8",
+    "01_stage1_reference_sizing\\main_stage1_reference_sizing.run": "c2347ad02b70471b476218e7d188a38c2e60dba81a4f2304842bcda16b0083e0",
+    "01_stage1_reference_sizing\\p2a_planning_scenarios.mod": "0073e3c050d01b684ce21ee2f056e2844641c96dfdfe83a4580d700017486cb7",
+    "01_stage1_reference_sizing\\planning_common.dat": "4f10e8c8654aa8f3c54f7fa2e248a9a1a849a98b4bea3066f3d3b9d8799b9825",
+    "01_stage1_reference_sizing\\scenario_sets\\K14\\planning_profiles.dat": "3f136667ac1096b35948464ac1b77af4cf7e449562935aa36565abfd04789426",
+    "01_stage1_reference_sizing\\scenario_sets\\K14\\planning_scenarios.dat": "b1d81bf1b22163b7fc68c0e04fd14be7e51fbb8f0078e70ab650619da9157ec2",
+    "01_stage1_reference_sizing\\scenario_sets\\K14\\scenario_map.csv": "8e4f0f729f7063b0585b84741bf41a4c82e10229655470187d02255df6bb8763"
+  },
+  "output_hashes": {
+    "results\\stage1\\K14\\planned_capacities_exact.dat": "4e166968f9e994ffcb37119d94242947148d39307a54ed5e0a880629892cf2d8",
+    "results\\stage1\\K14\\planning_dispatch.csv": "a6072d68e0ba85946e60daa6ad47d4603d804fd5f70893f6bb92a0a886d827e7",
+    "results\\stage1\\K14\\planning_scenario_summary.csv": "1b04d90a8ed0bc6493fa85edd75bc969439ddbc8b56a40965d82e8652f863ac4",
+    "results\\stage1\\K14\\planning_summary.csv": "e1e2c8912a88dd202f0ebdb81768809083705f97581c2de910c158c03c5174b0",
+    "results\\stage1\\K14\\reference_design_rounded.dat": "96b4949128b523d3e031960da71052d2d2b985d45e9efbbd74c1507758a175fc"
+  },
+  "rounded_reference_design": {
+    "h2_storage_kg": 22305.0,
+    "pv_MW": 186.362,
+    "wind_MW": 492.066
+  },
+  "selected_for_downstream": false,
+  "stage": "stage1"
+}

@@ -1,0 +1,74 @@
+# ============================================================
+# planning_common.dat
+# Fixed conversion-process and economic assumptions used in the paper runs.
+# PV, wind, and H2 storage capacities are VARIABLES in p2a_planning_scenarios.mod.
+# ============================================================
+
+data;
+
+param dt := 1;
+
+# PEM PWL set/coefficients are loaded separately from pem_pwl.dat.
+
+# ------------------------------------------------------------
+# Planning economics used in the final computational workflow.
+# See docs/DATA_PROVENANCE.md and the manuscript for parameter sources.
+# ------------------------------------------------------------
+param CAPEX_PV := 672000;       # USD/MW
+param CAPEX_WD := 1282000;      # USD/MW
+
+param FOM_PV   := 7540;         # USD/(MW-year)
+param FOM_WD   := 20000;        # USD/(MW-year)
+
+param CAPEX_H2_ST := 500;       # USD/kgH2
+param FOM_H2_ST   := 5;         # USD/(kgH2-year), 1% CAPEX
+
+# Capital recovery factors for 9% discount rate and 20-year lifetime.
+# A separate H2-storage factor is retained for transparency/future changes.
+param CRF       := 0.1095464750;
+param CRF_H2_ST := 0.1095464750;
+
+param MONTHS_PER_YEAR := 12;
+
+# Grid price used consistently across planning and baseline operation.
+param C_GRID     := 60.0;      # USD/MWh
+param EPS_EXPORT := 0.0001;    # USD/MWh; disposal penalty, not revenue
+
+# 100% strict hourly matching of PEM stack + PEM BOP.
+param MATCH_FRACTION := 1.00;
+param MATCH_FULL_P2A := 0;
+
+# ------------------------------------------------------------
+# Fixed PEM
+# ------------------------------------------------------------
+param P_EL_MAX      := 94.7000;
+param H2_PROD_RATED := 1745.7945;
+param SEC_BOP       := 0.004000;
+
+# ------------------------------------------------------------
+# H2 subsystem
+# H2_ST_MAX is now optimized as a first-stage capacity variable.
+# ------------------------------------------------------------
+param SEC_H2_COMP := 0.001520;
+param H2_COMP_MAX := 1745.7945;
+
+param H2_ST_MIN_FRAC  := 0.05;
+param H2_ST_MAX_FRAC  := 1.00;
+param H2_ST_INIT_FRAC := 0.50;
+
+# ------------------------------------------------------------
+# Fixed N2 / NH3 subsystem
+# ------------------------------------------------------------
+param LAMBDA_H2_NH3 := 0.1765;
+param LAMBDA_N2_NH3 := 0.8235;
+
+param N2_ASU_MAX  := 8145.39247;
+param N2_COMP_MAX := 8145.39247;
+
+param SEC_ASU     := 0.000095;
+param SEC_N2_COMP := 0.000270;
+
+param Q_NH3_MAX    := 9891.18697;
+param HB_MIN_LOAD  := 0.80;
+param SEC_HB       := 0.000002;
+param NH3_REQ_FRAC := 0.90;

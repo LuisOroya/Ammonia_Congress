@@ -1,0 +1,19 @@
+{
+  "created_utc": "2026-09-25T18:04:57.663735+00:00",
+  "input_hashes": {
+    "00_pem_curve\\generated\\pem_pwl_6segments.dat": "ef58cc07e145170c38e99d564f5e54ee43eb57d24798e91f84be367fb72f77c8",
+    "01_stage1_reference_sizing\\scenario_sets\\K09\\planning_profiles.dat": "e7abcfbeb0e157ccdaaa7630980b52dd01875974d015ea4a465c45f3dcbb04aa",
+    "01_stage1_reference_sizing\\scenario_sets\\K09\\planning_scenarios.dat": "aa28af13023783e43a73b9b5a1baa0bcbf6a35279a6166816878e78d633d8ca1",
+    "results\\stage1\\K09\\reference_design_rounded.dat": "920e2eb7066fe6f3a650ae51c50ab1430c992f3bac3d05abf1eaac2e089ef753",
+    "results\\stage2\\stage2_baselines.csv": "57363d8afc663feb0d44784807321ef251657acd75772eb4531d26546c44f178",
+    "results\\stage2\\stage2_reference_design.csv": "02f9f8e360876413d6da68adbd8719409758de77c45eac4104341d7d84969a13",
+    "results\\stage3\\stage3_baselines_k09.dat": "6e805205e1cc70543a9cbb59d5d8783d8f0f86a2d497765dcbb7081765bfc8ce"
+  },
+  "output_hashes": {
+    "results\\stage3\\stage3_flexibility_results.csv": "a6fb516ce1afb0f9cdef9b0ff86aeef92905d65ab6dab62e0fea198cab988431",
+    "results\\stage3\\stage3_retention_summary.csv": "1f5fe015d532ab79895b1ce8fb07d044cb7f0703b2a8b7c188be901082497a0d",
+    "results\\stage3\\stage3_scenario_summary.csv": "3a5dc94365ee1fee6633767771e5d38c65baae7e10fa57c95a7475f2ac4f1c10"
+  },
+  "selected_K": 9,
+  "stage": "stage3"
+}

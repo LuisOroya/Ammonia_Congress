@@ -1,0 +1,1108 @@
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000000088
+11829 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000000088
+0 simplex iterations
+s=4 c=1 d=1h tau=1 INC | PHYS=0.0000 RM=0.0000 R=-1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 104.9330214
+11731 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 104.9330214
+0 simplex iterations
+absmipgap=4.26326e-14, relmipgap=0
+s=4 c=1 d=1h tau=1 DEC | PHYS=104.9329 RM=104.9329 R=1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000000088
+8603 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000000092
+6480 simplex iterations
+1 branching node
+s=4 c=1 d=1h tau=175 INC | PHYS=0.0000 RM=0.0000 R=-1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 104.9330214
+8587 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 104.9330214
+0 simplex iterations
+absmipgap=4.26326e-14, relmipgap=0
+s=4 c=1 d=1h tau=175 DEC | PHYS=104.9329 RM=104.9329 R=1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.3649397188
+5727 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.3649397188
+0 simplex iterations
+s=4 c=1 d=1h tau=349 INC | PHYS=0.3648 RM=0.3648 R=1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 104.5681817
+5827 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 104.5681817
+0 simplex iterations
+absmipgap=4.26326e-14, relmipgap=0
+s=4 c=1 d=1h tau=349 DEC | PHYS=104.5681 RM=104.5681 R=1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 36.18253593
+3258 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 36.18253593
+0 simplex iterations
+ 
+------------ WARNINGS ------------
+WARNING:  "Tolerance violations"
+  Type                         MaxAbs [Name]   MaxRel [Name]
+* algebraic con(s)             1E-06           -             
+*: Using the solver's aux variable values.
+Documentation: mp.ampl.com/modeling-tools.html#automatic-solution-check.
+s=4 c=1 d=1h tau=523 INC | PHYS=36.1824 RM=36.1824 R=1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 68.7505855
+3108 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 68.7505855
+0 simplex iterations
+absmipgap=4.26326e-14, relmipgap=0
+s=4 c=1 d=1h tau=523 DEC | PHYS=68.7505 RM=68.7505 R=1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000000088
+11622 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000000088
+0 simplex iterations
+s=4 c=1 d=4h tau=1 INC | PHYS=0.0000 RM=0.0000 R=-1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 104.9330214
+11555 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 104.9330214
+0 simplex iterations
+s=4 c=1 d=4h tau=1 DEC | PHYS=104.9329 RM=104.9329 R=1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000000088
+8295 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000000088
+0 simplex iterations
+s=4 c=1 d=4h tau=175 INC | PHYS=0.0000 RM=0.0000 R=-1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 104.9330214
+8755 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 104.9330214
+0 simplex iterations
+s=4 c=1 d=4h tau=175 DEC | PHYS=104.9329 RM=104.9329 R=1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.3649397188
+5605 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.3649397188
+0 simplex iterations
+s=4 c=1 d=4h tau=349 INC | PHYS=0.3648 RM=0.3648 R=1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 104.5681817
+5559 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 104.5681817
+0 simplex iterations
+s=4 c=1 d=4h tau=349 DEC | PHYS=104.5681 RM=104.5681 R=1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 31.34275593
+3196 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 31.34275593
+0 simplex iterations
+s=4 c=1 d=4h tau=523 INC | PHYS=31.3427 RM=31.3427 R=1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 68.7505855
+2961 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 68.7505855
+0 simplex iterations
+ 
+------------ WARNINGS ------------
+WARNING:  "Tolerance violations"
+  Type                         MaxAbs [Name]   MaxRel [Name]
+* algebraic con(s)             1E-06           -             
+*: Using the solver's aux variable values.
+Documentation: mp.ampl.com/modeling-tools.html#automatic-solution-check.
+s=4 c=1 d=4h tau=523 DEC | PHYS=68.7505 RM=68.7505 R=1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000000088
+11951 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000000088
+0 simplex iterations
+s=4 c=1 d=12h tau=1 INC | PHYS=0.0000 RM=0.0000 R=-1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 85.4741835
+12032 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 85.4741835
+9216 simplex iterations
+1 branching node
+s=4 c=1 d=12h tau=1 DEC | PHYS=85.4741 RM=85.4741 R=1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000000088
+6656 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000000088
+0 simplex iterations
+s=4 c=1 d=12h tau=175 INC | PHYS=0.0000 RM=0.0000 R=-1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 64.38341183
+8875 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 64.38341183
+2399 simplex iterations
+1 branching node
+s=4 c=1 d=12h tau=175 DEC | PHYS=64.3833 RM=64.3833 R=1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.3649397188
+5585 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.3649397188
+0 simplex iterations
+s=4 c=1 d=12h tau=349 INC | PHYS=0.3648 RM=0.3648 R=1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 76.14343365
+5462 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 76.14343365
+3248 simplex iterations
+1 branching node
+s=4 c=1 d=12h tau=349 DEC | PHYS=76.1433 RM=76.1433 R=1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.5986701251
+2629 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.5986701251
+0 simplex iterations
+s=4 c=1 d=12h tau=523 INC | PHYS=0.5986 RM=0.5986 R=1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 25.1195481
+3255 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 25.1195481
+1646 simplex iterations
+1 branching node
+s=4 c=1 d=12h tau=523 DEC | PHYS=25.1194 RM=25.1194 R=1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000000088
+8276 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000000088
+0 simplex iterations
+s=4 c=1 d=24h tau=1 INC | PHYS=0.0000 RM=0.0000 R=-1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 56.48283444
+12349 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 56.48283444
+3612 simplex iterations
+1 branching node
+s=4 c=1 d=24h tau=1 DEC | PHYS=56.4827 RM=56.4827 R=1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000000088
+6450 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000000088
+0 simplex iterations
+s=4 c=1 d=24h tau=175 INC | PHYS=0.0000 RM=0.0000 R=-1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 44.94956592
+8831 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 44.94956592
+6950 simplex iterations
+1 branching node
+s=4 c=1 d=24h tau=175 DEC | PHYS=44.9495 RM=44.9495 R=1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.3649397188
+4328 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.3649397188
+0 simplex iterations
+s=4 c=1 d=24h tau=349 INC | PHYS=0.3648 RM=0.3648 R=1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 40.89659665
+5887 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 40.89659665
+4918 simplex iterations
+1 branching node
+ 
+------------ WARNINGS ------------
+WARNING:  "Tolerance violations"
+  Type                         MaxAbs [Name]   MaxRel [Name]
+* algebraic con(s)             1E-06           -             
+*: Using the solver's aux variable values.
+Documentation: mp.ampl.com/modeling-tools.html#automatic-solution-check.
+s=4 c=1 d=24h tau=349 DEC | PHYS=40.8965 RM=40.8965 R=1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.5986701251
+2623 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.5986701251
+0 simplex iterations
+s=4 c=1 d=24h tau=523 INC | PHYS=0.5986 RM=0.5986 R=1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001010646859
+2855 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001010646859
+1959 simplex iterations
+1 branching node
+s=4 c=1 d=24h tau=523 DEC | PHYS=0.0000 RM=0.0000 R=-1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000000088
+11829 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000000088
+9993 simplex iterations
+1 branching node
+s=4 c=2 d=1h tau=1 INC | PHYS=0.0000 RM=0.0000 R=-1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 104.9330214
+11731 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.612090879
+9106 simplex iterations
+1 branching node
+s=4 c=2 d=1h tau=1 DEC | PHYS=104.9329 RM=0.6120 R=0.0058
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000000088
+9084 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000000088
+7942 simplex iterations
+1 branching node
+s=4 c=2 d=1h tau=175 INC | PHYS=0.0000 RM=0.0000 R=-1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 104.9330214
+8429 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.6120908789
+7218 simplex iterations
+1 branching node
+s=4 c=2 d=1h tau=175 DEC | PHYS=104.9329 RM=0.6120 R=0.0058
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.5986701251
+5670 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.5986701251
+5841 simplex iterations
+1 branching node
+s=4 c=2 d=1h tau=349 INC | PHYS=0.5986 RM=0.5986 R=1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 104.3344513
+5308 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.01352075374
+4991 simplex iterations
+1 branching node
+absmipgap=1.00542e-10, relmipgap=7.43611e-09
+s=4 c=2 d=1h tau=349 DEC | PHYS=104.3344 RM=0.0134 R=0.0001
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 31.83763308
+1689 simplex iterations
+1 branching node
+ 
+------------ WARNINGS ------------
+WARNING:  "Tolerance violations"
+  Type                         MaxAbs [Name]   MaxRel [Name]
+* algebraic con(s)             2E-06           -             
+*: Using the solver's aux variable values.
+Documentation: mp.ampl.com/modeling-tools.html#automatic-solution-check.
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001001714267
+1936 simplex iterations
+1 branching node
+absmipgap=2.84217e-14, relmipgap=0
+s=4 c=2 d=1h tau=523 INC | PHYS=31.8375 RM=0.0000 R=0.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 73.09548835
+3490 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001066013622
+1952 simplex iterations
+1 branching node
+s=4 c=2 d=1h tau=523 DEC | PHYS=73.0954 RM=0.0000 R=0.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000000088
+11622 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000000088
+10479 simplex iterations
+1 branching node
+s=4 c=2 d=4h tau=1 INC | PHYS=0.0000 RM=0.0000 R=-1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 104.9330214
+11555 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.6020253135
+9258 simplex iterations
+1 branching node
+s=4 c=2 d=4h tau=1 DEC | PHYS=104.9329 RM=0.6019 R=0.0057
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000000088
+8611 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000000088
+6979 simplex iterations
+1 branching node
+s=4 c=2 d=4h tau=175 INC | PHYS=0.0000 RM=0.0000 R=-1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 104.9330214
+8291 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.6020253135
+7356 simplex iterations
+1 branching node
+s=4 c=2 d=4h tau=175 DEC | PHYS=104.9329 RM=0.6019 R=0.0057
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.5986701251
+5559 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.5986701251
+6032 simplex iterations
+1 branching node
+s=4 c=2 d=4h tau=349 INC | PHYS=0.5986 RM=0.5986 R=1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 104.3344513
+5813 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.003455188426
+5205 simplex iterations
+1 branching node
+s=4 c=2 d=4h tau=349 DEC | PHYS=104.3344 RM=0.0034 R=0.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 26.88378793
+3592 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000428666
+1846 simplex iterations
+1 branching node
+s=4 c=2 d=4h tau=523 INC | PHYS=26.8837 RM=0.0000 R=0.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 73.09548835
+3144 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001019114997
+2061 simplex iterations
+1 branching node
+s=4 c=2 d=4h tau=523 DEC | PHYS=73.0954 RM=0.0000 R=0.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000000088
+11951 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000000088
+10268 simplex iterations
+1 branching node
+s=4 c=2 d=12h tau=1 INC | PHYS=0.0000 RM=0.0000 R=-1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 85.4741835
+12032 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.5997885212
+9275 simplex iterations
+1 branching node
+s=4 c=2 d=12h tau=1 DEC | PHYS=85.4741 RM=0.5997 R=0.0070
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000000088
+7799 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000000088
+7708 simplex iterations
+1 branching node
+s=4 c=2 d=12h tau=175 INC | PHYS=0.0000 RM=0.0000 R=-1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 69.63088779
+8404 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.5997885212
+7120 simplex iterations
+1 branching node
+s=4 c=2 d=12h tau=175 DEC | PHYS=69.6308 RM=0.5997 R=0.0086
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.5986701251
+5703 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.5986701251
+5908 simplex iterations
+1 branching node
+s=4 c=2 d=12h tau=349 INC | PHYS=0.5986 RM=0.5986 R=1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 82.59419678
+5756 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.001218396121
+5732 simplex iterations
+1 branching node
+absmipgap=7.2699e-12, relmipgap=0
+s=4 c=2 d=12h tau=349 DEC | PHYS=82.5941 RM=0.0011 R=0.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.5986701251
+2513 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001001846411
+1816 simplex iterations
+1 branching node
+s=4 c=2 d=12h tau=523 INC | PHYS=0.5986 RM=0.0000 R=0.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001001846411
+0 simplex iterations
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001001846411
+0 simplex iterations
+s=4 c=2 d=12h tau=523 DEC | PHYS=0.0000 RM=0.0000 R=-1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000000088
+8276 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000000087
+10635 simplex iterations
+1 branching node
+s=4 c=2 d=24h tau=1 INC | PHYS=0.0000 RM=0.0000 R=-1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 56.48283444
+12349 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.5992293232
+9772 simplex iterations
+1 branching node
+s=4 c=2 d=24h tau=1 DEC | PHYS=56.4827 RM=0.5991 R=0.0106
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000000088
+6423 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001000000088
+8206 simplex iterations
+1 branching node
+s=4 c=2 d=24h tau=175 INC | PHYS=0.0000 RM=0.0000 R=-1.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 47.83676651
+8720 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.5992293231
+7279 simplex iterations
+1 branching node
+s=4 c=2 d=24h tau=175 DEC | PHYS=47.8367 RM=0.5991 R=0.0125
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.5986701251
+5740 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.4383572314
+5059 simplex iterations
+1 branching node
+s=4 c=2 d=24h tau=349 INC | PHYS=0.5986 RM=0.4383 R=0.7322
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 45.72736439
+6233 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0006531364767
+5601 simplex iterations
+1 branching node
+absmipgap=8.66561e-14, relmipgap=0
+s=4 c=2 d=24h tau=349 DEC | PHYS=45.7273 RM=0.0000 R=0.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.5986701251
+2327 simplex iterations
+1 branching node
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001001714267
+1759 simplex iterations
+1 branching node
+s=4 c=2 d=24h tau=523 INC | PHYS=0.5986 RM=0.0000 R=0.0000
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001001714267
+0 simplex iterations
+Gurobi 13.0.3:   mip:gap = 0
+  mip:focus = 2
+  pre:solve = 2
+  tech:threads = 16
+  tech:outlev = 0
+Gurobi 13.0.3: optimal solution; objective 0.0001001714267
+0 simplex iterations
+s=4 c=2 d=24h tau=523 DEC | PHYS=0.0000 RM=0.0000 R=-1.0000
+
+============================================================
+ STAGE 3 PILOT COMPLETE
+============================================================
+Scenario: s=4 (April 2020 stress month)
+Cases: monthly and hourly
+Durations: 1, 4, 12, 24 h
+Output: stage3_pilot_results.csv
+Check that no material RM > PHYS warning appears.
+Then run: py analyze_stage3_results.py stage3_pilot_results.csv
+============================================================

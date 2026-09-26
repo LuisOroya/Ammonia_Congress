@@ -1,0 +1,274 @@
+# ============================================================
+# diagnose_s5_nm_variability.run
+#
+# Purpose
+# -------
+# Diagnose the small Stage-2 secondary-objective ordering issue
+# observed for scenario S5:
+#
+#   V_N = 2.0551166836
+#   V_M = 2.0550076123
+#
+# Because NO_MATCH is less constrained than MONTHLY, V_N <= V_M
+# must hold when both secondary problems use the same operating-
+# cost ceiling. This diagnostic therefore:
+#
+#   1) solves Stage A for S5 under N and M;
+#   2) constructs one COMMON Stage-B cost lock;
+#   3) solves N Stage B from a fresh unrestricted state;
+#   4) solves M Stage B and stores its y_seg pattern;
+#   5) fixes that M pattern in the N problem and resolves;
+#   6) unfixes the pattern and resolves N again, using the feasible
+#      fixed-M solution as a warm starting point.
+#
+# Run this file FROM:
+#   P2A_Renewable_Matching_Flexibility\02_stage2_baselines
+#
+# It expects the clean repository directory structure.
+# ============================================================
+
+reset;
+
+model p2a_stage2_fixed_baselines_sbpwl.mod;
+
+data stage2_common.dat;
+data ../00_pem_curve/generated/pem_pwl_6segments.dat;
+data ../results/stage1/K09/reference_design_rounded.dat;
+data ../01_stage1_reference_sizing/scenario_sets/K09/planning_scenarios.dat;
+data ../01_stage1_reference_sizing/scenario_sets/K09/planning_profiles.dat;
+
+option solver gurobi;
+option gurobi_options 'mipgap=0 mipfocus=2 presolve=2 threads=16 outlev=1';
+
+# ------------------------------------------------------------
+# Diagnostic storage
+# ------------------------------------------------------------
+
+param N_COST_A default 0;
+param M_COST_A default 0;
+param COMMON_LOCK default 0;
+
+param V_N_FRESH default 0;
+param C_N_FRESH default 0;
+
+param V_M default 0;
+param C_M default 0;
+param M_MONTHLY_MARGIN default 0;
+
+param V_N_FIXM default 0;
+param C_N_FIXM default 0;
+
+param V_N_WARM default 0;
+param C_N_WARM default 0;
+
+param Y_M {N,T} default 0;
+
+# ------------------------------------------------------------
+# Scenario S5
+# ------------------------------------------------------------
+
+let ACTIVE_SCEN := 5;
+
+printf "\n============================================================\n";
+printf " S5 N/M SECONDARY-OBJECTIVE DIAGNOSTIC\n";
+printf "============================================================\n";
+
+# ============================================================
+# 1) NO_MATCH Stage A
+# ============================================================
+
+let MATCH_MONTHLY := 0;
+let MATCH_HOURLY  := 0;
+
+drop PrimaryCostLock;
+objective ScenarioOperatingCost;
+
+solve;
+
+if solve_result != "solved" then {
+    printf "\nERROR: S5 NO_MATCH Stage-A failed: %s\n", solve_result;
+    exit;
+}
+
+let N_COST_A := ScenarioOperatingCost;
+
+printf "\nNO_MATCH Stage-A\n";
+printf "  operating cost = %.15f USD\n", N_COST_A;
+
+# ============================================================
+# 2) MONTHLY Stage A
+# ============================================================
+
+let MATCH_MONTHLY := 1;
+let MATCH_HOURLY  := 0;
+
+solve;
+
+if solve_result != "solved" then {
+    printf "\nERROR: S5 MONTHLY Stage-A failed: %s\n", solve_result;
+    exit;
+}
+
+let M_COST_A := ScenarioOperatingCost;
+
+printf "\nMONTHLY Stage-A\n";
+printf "  operating cost = %.15f USD\n", M_COST_A;
+
+# Use exactly the same Stage-B ceiling for N and M.
+let COMMON_LOCK := N_COST_A + COST_LOCK_EPS;
+if M_COST_A > N_COST_A then
+    let COMMON_LOCK := M_COST_A + COST_LOCK_EPS;
+
+printf "\nCommon Stage-B lock\n";
+printf "  COST_LOCK_EPS = %.15f USD\n", COST_LOCK_EPS;
+printf "  common lock   = %.15f USD\n", COMMON_LOCK;
+
+# ============================================================
+# 3) NO_MATCH Stage B -- fresh unrestricted solve
+# ============================================================
+
+let MATCH_MONTHLY := 0;
+let MATCH_HOURLY  := 0;
+let COST_LOCK := COMMON_LOCK;
+
+restore PrimaryCostLock;
+objective ScenarioNormalizedVariability;
+
+solve;
+
+if solve_result != "solved" then {
+    printf "\nERROR: S5 NO_MATCH fresh Stage-B failed: %s\n", solve_result;
+    exit;
+}
+
+let V_N_FRESH := ScenarioNormalizedVariability;
+let C_N_FRESH := ScenarioOperatingCost;
+
+printf "\nNO_MATCH fresh Stage-B\n";
+printf "  variability    = %.15f\n", V_N_FRESH;
+printf "  operating cost = %.15f USD\n", C_N_FRESH;
+
+# ============================================================
+# 4) MONTHLY Stage B -- store optimal segment pattern
+# ============================================================
+
+let MATCH_MONTHLY := 1;
+let MATCH_HOURLY  := 0;
+let COST_LOCK := COMMON_LOCK;
+
+solve;
+
+if solve_result != "solved" then {
+    printf "\nERROR: S5 MONTHLY Stage-B failed: %s\n", solve_result;
+    exit;
+}
+
+let V_M := ScenarioNormalizedVariability;
+let C_M := ScenarioOperatingCost;
+
+let {n in N, t in T: t <= NPER[ACTIVE_SCEN]}
+    Y_M[n,t] := y_seg[n,t];
+
+let M_MONTHLY_MARGIN :=
+    sum {t in T: t <= NPER[ACTIVE_SCEN]}
+        ((p_pv[t] + p_wd[t])
+        - MATCH_FRACTION*p_match_load[t]) * dt;
+
+printf "\nMONTHLY Stage-B\n";
+printf "  variability           = %.15f\n", V_M;
+printf "  operating cost        = %.15f USD\n", C_M;
+printf "  monthly match margin  = %.15f MWh\n", M_MONTHLY_MARGIN;
+
+# ============================================================
+# 5) NO_MATCH with MONTHLY y_seg pattern fixed
+# ============================================================
+
+let MATCH_MONTHLY := 0;
+let MATCH_HOURLY  := 0;
+let COST_LOCK := COMMON_LOCK;
+
+fix {n in N, t in T: t <= NPER[ACTIVE_SCEN]}
+    y_seg[n,t] := Y_M[n,t];
+
+solve;
+
+if solve_result != "solved" then {
+    printf "\nERROR: MONTHLY Stage-B pattern is not feasible in NO_MATCH: %s\n",
+        solve_result;
+    exit;
+}
+
+let V_N_FIXM := ScenarioNormalizedVariability;
+let C_N_FIXM := ScenarioOperatingCost;
+
+printf "\nNO_MATCH with MONTHLY pattern fixed\n";
+printf "  variability    = %.15f\n", V_N_FIXM;
+printf "  operating cost = %.15f USD\n", C_N_FIXM;
+printf "  V_N_FIXM-V_M   = %.15e\n", V_N_FIXM - V_M;
+
+# ============================================================
+# 6) NO_MATCH unrestricted again after feasible M-pattern start
+# ============================================================
+
+unfix {n in N, t in T: t <= NPER[ACTIVE_SCEN]}
+    y_seg[n,t];
+
+solve;
+
+if solve_result != "solved" then {
+    printf "\nERROR: S5 NO_MATCH warm Stage-B failed: %s\n", solve_result;
+    exit;
+}
+
+let V_N_WARM := ScenarioNormalizedVariability;
+let C_N_WARM := ScenarioOperatingCost;
+
+printf "\nNO_MATCH unrestricted Stage-B after M-pattern solve\n";
+printf "  variability    = %.15f\n", V_N_WARM;
+printf "  operating cost = %.15f USD\n", C_N_WARM;
+printf "  V_N_WARM-V_M   = %.15e\n", V_N_WARM - V_M;
+printf "  V_N_WARM-V_NFIXM = %.15e\n", V_N_WARM - V_N_FIXM;
+
+# ============================================================
+# Summary / logical checks
+# ============================================================
+
+printf "\n============================================================\n";
+printf " S5 N/M SECONDARY-OBJECTIVE DIAGNOSTIC SUMMARY\n";
+printf "============================================================\n";
+printf "N Stage-A cost                  = %.15f USD\n", N_COST_A;
+printf "M Stage-A cost                  = %.15f USD\n", M_COST_A;
+printf "Common Stage-B lock             = %.15f USD\n", COMMON_LOCK;
+printf "N fresh Stage-B variability     = %.15f\n", V_N_FRESH;
+printf "M Stage-B variability           = %.15f\n", V_M;
+printf "N fixed-M-pattern variability   = %.15f\n", V_N_FIXM;
+printf "N warm unrestricted variability = %.15f\n", V_N_WARM;
+printf "N fresh Stage-B cost            = %.15f USD\n", C_N_FRESH;
+printf "M Stage-B cost                  = %.15f USD\n", C_M;
+printf "N fixed-M-pattern cost          = %.15f USD\n", C_N_FIXM;
+printf "N warm unrestricted cost        = %.15f USD\n", C_N_WARM;
+printf "M monthly RES-match margin      = %.15f MWh\n", M_MONTHLY_MARGIN;
+printf "------------------------------------------------------------\n";
+
+if V_N_FIXM <= V_M + 1e-7 then {
+    printf "PASS: MONTHLY Stage-B pattern provides a NO_MATCH solution\n";
+    printf "      with variability no greater than the MONTHLY optimum.\n";
+} else {
+    printf "WARNING: fixed-M NO_MATCH variability exceeds M by %.15e.\n",
+        V_N_FIXM - V_M;
+}
+
+if V_N_WARM <= V_N_FIXM + 1e-7 then {
+    printf "PASS: unrestricted warm-started NO_MATCH satisfies\n";
+    printf "      V_N <= V_N(fixed-M).\n";
+} else {
+    printf "WARNING: warm NO_MATCH remains worse than fixed-M by %.15e.\n",
+        V_N_WARM - V_N_FIXM;
+}
+
+if V_N_FRESH > V_M + 1e-5 then {
+    printf "DIAGNOSTIC: fresh NO_MATCH reproduces the ordering anomaly:\n";
+    printf "            V_N(fresh)-V_M = %.15e.\n", V_N_FRESH - V_M;
+}
+
+printf "============================================================\n";

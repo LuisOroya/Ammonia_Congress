@@ -1,9 +1,0 @@
-Stage 3 v5 patch
-
-1. Adds BASE_REPLAY_TOL = 1e-4 MW to the INC/DEC activation inequalities.
-   This only protects against numerical mismatch when reloading Stage-2 baseline
-   values from CSV/data files.
-2. The pilot no longer stops at the first failed event; it reports the failure
-   and continues, allowing MONTHLY and HOURLY cases to be inspected in one run.
-3. PHYS/RM definitions, terminal H2 restoration, total NH3 preservation, and
-   activation durations/starts are unchanged.

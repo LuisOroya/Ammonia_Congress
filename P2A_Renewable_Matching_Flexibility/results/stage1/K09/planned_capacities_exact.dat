@@ -1,0 +1,4 @@
+# Numerical Stage-1 optimum (full printed precision)
+param P_PV_MAX := 187.4085793800;
+param P_WD_MAX := 483.9777086698;
+param H2_ST_MAX := 27030.1729661314;
